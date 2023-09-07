@@ -1,0 +1,274 @@
+{ "artistData" : [
+    {
+      "name": "Dr. Alexandra Martin",
+      "totalSales": null,
+      "CreatorPfp": "/avatar-placeholder4@2x.png",
+      "rank": 1
+    },
+    {
+      "name": "Dr. Benjamin Carter",
+      "totalSales": null,
+      "CreatorPfp": "/avatar-placeholder5@2x.png",
+      "rank": 2
+    },
+    {
+      "name": "Dr. Sophia Patel",
+      "totalSales": "34.53 USD",
+      "CreatorPfp": "/avatar-placeholder6@2x.png",
+      "rank": 3
+    },
+    {
+      "name": "Dr. Olivia Roberts",
+      "totalSales": "34.53 USD",
+      "CreatorPfp": "/avatar-placeholder7@2x.png",
+      "rank": 4
+    },
+    {
+      "name": "Dr. Samuel Thompson",
+      "totalSales": null,
+      "CreatorPfp": "/avatar-placeholder8@2x.png",
+      "rank": 5
+    },
+    {
+      "name": "Dr. Matthew Mitchell",
+      "totalSales": null,
+      "CreatorPfp": "/avatar-placeholder9@2x.png",
+      "rank": 6
+    },
+    {
+      "name": "Dr. Ava Lewis",
+      "totalSales": "34.53 USD",
+      "CreatorPfp": "/avatar-placeholder10@2x.png",
+      "rank": 7
+    },
+    {
+      "name": "Dr. Jacob Edwards",
+      "totalSales": null,
+      "CreatorPfp": "/avatar-placeholder11@2x.png",
+      "rank": 8
+    },
+    {
+      "name": "Dr. Harper Johnson",
+      "totalSales": null,
+      "CreatorPfp": "/avatar-placeholder12@2x.png",
+      "rank": 9
+    },
+    {
+      "name": "Dr. Dan Walker",
+      "totalSales": "34.53 USD",
+      "CreatorPfp": "/avatar-placeholder13@2x.png",
+      "rank": 10
+    },
+    {
+      "name": "Dr. Grace Taylor",
+      "totalSales": "34.53 USD",
+      "CreatorPfp": "/avatar-placeholder14@2x.png",
+      "rank": 11
+    },
+    {
+      "name": "Dr. Marshal Smith",  
+      "totalSales": "34.53 USD", 
+      "CreatorPfp": "/avatar-placeholder15@2x.png",
+      "rank": 12
+    }
+  ],
+"paperCard": [
+  {
+    "onPaperCardContainerClick": "onPaperCardContainerClick",
+    "imagePlaceholder": "/image-placeholder8@2x.png",
+    "PaperHeading": "Digital Health",
+    "CreatorPfp": "/avatar-placeholder16@2x.png",
+    "Creator": "Dr. Daniel Morgan"
+  },
+  {
+    "onPaperCardContainerClick": "onPaperCardContainer1Click",
+    "imagePlaceholder": "/image-placeholder9@2x.png",
+    "PaperHeading": "Neuro Plasticity element",
+    "CreatorPfp": "/avatar-placeholder17@2x.png",
+    "Creator": "Dr. Chloe Adams",
+    "CreatorPfpIconBorderRadius": "120px",
+    "PaperCardCursor": "pointer",
+    "PaperCardBackgroundColor": "#3b3b3b"
+  },
+  {
+    "onPaperCardContainerClick": "onPaperCardContainer2Click",
+    "imagePlaceholder": "/image-placeholder10@2x.png",
+    "PaperHeading": "Genome Advancements",
+    "CreatorPfp": "/avatar-placeholder18@2x.png",
+    "Creator": "Dr. Lily Foster",
+    "CreatorPfpIconBorderRadius": "120px",
+    "PaperCardCursor": "pointer",
+    "PaperCardBackgroundColor": "#3b3b3b"
+  }
+],
+"collectionData" : [
+  {
+    "type": "CollectionCard",
+    "primaryPhotoPlaceholder": "/paper@2x.png",
+    "secondaryPhotoPlaceholder": "/secondary-photo-placeholder@2x.png",
+    "secondaryPhotoPlaceholder1": "/secondary-photo-placeholder1@2x.png",
+    "collectionName": "Aging Research",
+    "CreatorPfp": "/avatar-placeholder1@2x.png",
+    "artistName": "Dr Samuel Jeffries"
+  },
+  {
+    "type": "CollectionCard",
+    "primaryPhotoPlaceholder": "/paper1@2x.png",
+    "secondaryPhotoPlaceholder": "/secondary-photo-placeholder2@2x.png",
+    "secondaryPhotoPlaceholder1": "/secondary-photo-placeholder3@2x.png",
+    "collectionName": "DNA Sampling",
+    "CreatorPfp": "/avatar-placeholder2@2x.png",
+    "artistName": "Dr Richa Aggarwal"
+  },
+  {
+    "type": "CollectionCard",
+    "primaryPhotoPlaceholder": "/paper2@2x.png",
+    "secondaryPhotoPlaceholder": "/secondary-photo-placeholder4@2x.png",
+    "secondaryPhotoPlaceholder1": "/secondary-photo-placeholder5@2x.png",
+    "collectionName": "Gene Editing",
+    "CreatorPfp": "/avatar-placeholder3@2x.png",
+    "artistName": "Dr Stephen Jackson"
+  }
+],
+"rankData" : [
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "2",
+  "name": "Dr. Olivia Hayes",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder63@2x.png"
+},
+  {
+  "rank": "3",
+  "name": "Dr. Ethan Brooks",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder64@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+},
+  {
+  "rank": "1",
+  "name": "Dr. Benjamin Reed",
+  "totalSales": 602,
+  "CreatorPfp":"/avatar-placeholder62@2x.png"
+}
+]
+
+}
