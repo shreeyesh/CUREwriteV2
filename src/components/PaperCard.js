@@ -45,7 +45,7 @@ const PaperCard = ({
       </div>
       <div className="self-stretch flex flex-col pt-5 px-[30px] pb-[25px] items-start justify-start gap-[25px]">
         <div className="self-stretch flex flex-col items-start justify-start gap-[5px]">
-          <div className="self-stretch relative leading-[140%] capitalize font-semibold">
+          <div className="self-stretch relative leading-[140%] capitalize font-semibold overflow-hidden whitespace-nowrap text-overflow-ellipsis">
             {PaperHeading}
           </div>
           <div className="self-stretch flex flex-row items-start justify-start gap-[12px] text-base font-base-body-space-mono"

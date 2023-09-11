@@ -6,6 +6,7 @@ import Navigation1 from "../components/Navigation1";
 import UploadArea from "../components/UploadArea";
 import jwt_decode from "jwt-decode";
 import LoginPopup from "../components/LoginPopup";
+import Footer1 from "../components/Footer1";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 const CreatePostDesktop = () => {
@@ -25,6 +26,7 @@ const CreatePostDesktop = () => {
   const [imageFiles, setImageFiles] = useState([]);
   const [pdfFiles, setPdfFiles] = useState([]);
   const [fileuploaded,setFileUploaded] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
 
   // Store states
@@ -34,17 +36,40 @@ const CreatePostDesktop = () => {
   
   // local storage
   const userPfp = localStorage.getItem("userPfp");
+
+    // Function to validate image format
+    const isValidImage = (file) => {
+      const validFormats = ['.jpg', '.jpeg', '.png', '.gif', '.bmp'];
+      const ext = file.name.substr(file.name.lastIndexOf('.')).toLowerCase();
+      return validFormats.includes(ext);
+    };
+  
+    // Function to validate PDF format
+    const isValidPdf = (file) => {
+      return file.name.substr(file.name.lastIndexOf('.')).toLowerCase() === '.pdf';
+    };
   
   // Handle file changes for images and PDFs
   const handleImageUpload = async (files) => {
     const formData = new FormData();
-    Array.from(files).forEach(file => {
-        formData.append('images', file);
-    });
+      // Validate each file before appending
+      Array.from(files).forEach(file => {
+        if (isValidImage(file)) {
+          formData.append('images', file);
+        } else {
+          setAlert("Please upload a valid image format.");
+          setAlertPopupOpen(true);
+          return;
+        }
+      });
     
     const response = await fetch(`${backendURL}/upload-images`, {
         method: 'POST',
-        body: formData
+        body: formData,
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setUploadProgress(percentCompleted);
+      },
     });
     const data = await response.json();
     setImageFiles(data.urls);
@@ -60,14 +85,25 @@ const handleCheckboxChange = (event) => {
 
 const handlePdfUpload = async (files) => {
     const formData = new FormData();
-    Array.from(files).forEach(file => {
-        formData.append('pdfs', file);
-    });
+      // Validate each file before appending
+      Array.from(files).forEach(file => {
+        if (isValidPdf(file)) {
+          formData.append('pdfs', file);
+        } else {
+          setAlert("Please upload a valid PDF.");
+          setAlertPopupOpen(true);
+          return;
+        }
+      });
     
     const response = await fetch(`${backendURL}/upload-pdfs`, {
         method: 'POST',
-        body: formData
-    });
+        body: formData,
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setUploadProgress(percentCompleted);
+        },
+      });
     const data = await response.json();
     setPdfFiles(data.urls);
     setFileUploaded(true);
@@ -88,7 +124,6 @@ const removeImg = (index) => {
 }
 
 // Handle Payment using razorpay
-// const history = useHistory();
 
 const handlePayment = async () => {
   if (!profile) {
@@ -169,6 +204,15 @@ const handlePayment = async () => {
         if (verificationData.status === "ok") {
           setAlert("Paper sent for review !")
           openAlertPopup();
+           // set all inputs to null
+              setHeading("");
+              setAbstract("");
+              setPrice("");
+              setCategory("");
+              setImageFiles([]);
+              setPdfFiles([]);
+              setIsChecked(false);
+              setFileUploaded(false);
           // handleReviewClick();  
         } else {
           console.error("Payment verification failed");
@@ -262,15 +306,22 @@ const handlePayment = async () => {
       const data = await response.json();
       setAlert("Paper published!")
       openAlertPopup();
+      // set all inputs to null
+      setHeading("");
+      setAbstract("");
+      setPrice("");
+      setCategory("");
+      setImageFiles([]);
+      setPdfFiles([]);
+      setIsChecked(false);
+      setFileUploaded(false);
+
       // TODO: Handle success (e.g., show a success message or navigate to another page)
     } catch (error) {
       console.error('Error posting data:', error);
       // TODO: Handle error (e.g., show an error message)
     }
 });
-
-
-    
 
   // Verify login using token
   useEffect(() =>{
@@ -409,7 +460,6 @@ const handlePayment = async () => {
                             <select 
               value={category} 
               onChange={(e) => setCategory(e.target.value)}
-              // className="w-[530px] "
             >
               <option value="">Category</option>
               <option value="Geriatrics">Geriatrics</option>
@@ -423,11 +473,12 @@ const handlePayment = async () => {
             </select>
                  
                 </div>
-                <div className="my-0 mx-[!important] absolute top-[58px] left-[-24px] rounded-xl bg-text box-border w-[586px] h-[463px] flex flex-row py-4 px-5 items-center justify-start gap-[12px] z-[1] text-center border-[1px] border-solid border-caption-label-text">
+                <div className="my-0 mx-[!important] absolute top-[58px] left-[-24px] rounded-xl bg-text box-border w-[586px] h-[463px] flex flex-row py-4 px-5 items-center justify-start gap-[12px] z-[1] text-center border-[1px] border-solid ">
                 <textarea 
+                    type="text"
                     value={abstract}
                     onChange={handleAbstractChange}
-                    className="border-none outline-none text-left placeholder-center flex-1 relative leading-[140%]"
+                    className="border-none outline-none text-left placeholder-center"
                     placeholder="Abstract"
                     rows="10"
                     data-te-input-showcounter="true"
@@ -469,93 +520,17 @@ const handlePayment = async () => {
             </div>
           </div>
         </div>
-        <div className="absolute top-[1000px] left-[0px] bg-background-secondary w-[1280px] flex flex-col pt-[2.5rem] pb-[3.3rem] px-[195px] box-border items-center justify-start gap-[30px] font-base-body-space-mono">
-          <div className="flex flex-row items-start justify-between">
-            <div className="w-[327.41px] flex flex-col py-0 pr-[84px] pl-0 box-border items-start justify-start gap-[30px] text-base text-lightgray font-h3-work-sans">
-              <img className="relative w-8 h-8" alt="" src="/logo1.svg" />
-              <div className="flex flex-col items-start justify-start gap-[20px]">
-                <div className="relative leading-[140%] inline-block w-[238px]">
-                  Write and Buy Research Papers on Curewrite
-                </div>
-                <div className="flex flex-col items-start justify-start gap-[15px]">
-                  <div className="relative leading-[140%] inline-block w-[238px] h-[18px] shrink-0">
-                    Join our community
-                  </div>
-                  <div className="flex flex-row items-start justify-start gap-[10px]">
-                    <img
-                      className="relative w-8 h-8 cursor-pointer"
-                      alt=""
-                      src="/discordlogo3.svg"
-                      onClick={onDiscordLogoIconClick}
-                    />
-                    <img
-                      className="relative w-8 h-8 cursor-pointer"
-                      alt=""
-                      src="/youtubelogo2.svg"
-                      onClick={onYoutubeLogoIconClick}
-                    />
-                    <img
-                      className="relative w-8 h-8 cursor-pointer"
-                      alt=""
-                      src="/twitterlogo3.svg"
-                      onClick={onTwitterLogoIconClick}
-                    />
-                    <img
-                      className="relative w-8 h-8 cursor-pointer"
-                      alt=""
-                      src="/instagramlogo2.svg"
-                      onClick={onInstagramLogoIconClick}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-60 flex flex-col items-start justify-start gap-[25px]">
-              <b className="relative leading-[160%] capitalize">Explore</b>
-              <div className="flex flex-col items-start justify-start gap-[20px] text-base text-lightgray font-h3-work-sans">
-                <div className="relative leading-[140%]">Marketplace</div>
-                <div className="relative leading-[140%]">Rankings</div>
-                <div className="relative leading-[140%]">Editors</div>
-              </div>
-            </div>
-            <div className="flex flex-col items-start justify-start gap-[25px]">
-              <b className="relative leading-[160%] capitalize">
-                Join our weekly digest
-              </b>
-              <div className="flex flex-col items-start justify-start gap-[20px] text-base text-lightgray font-h3-work-sans">
-                <div className="relative leading-[140%] inline-block w-[330px]">{`Get exclusive promotions & updates straight to your inbox.`}</div>
-                <div className="rounded-xl bg-text w-[420px] h-[60px] flex flex-row py-4 pr-0 pl-5 box-border items-center justify-start gap-[12px] text-background">
-                  <div className="flex-1 relative leading-[140%]">
-                    Enter your email here
-                  </div>
-                  <div
-                    className="rounded-xl bg-call-to-action h-[60px] flex flex-row py-0 px-[50px] box-border items-center justify-end gap-[12px] cursor-pointer text-center text-text"
-                    onClick={onButtonContainer2Click}
-                  >
-                    <img
-                      className="relative w-5 h-5 hidden"
-                      alt=""
-                      src="/envelopesimple3.svg"
-                    />
-                    <div className="relative leading-[140%] font-semibold">
-                      Subscribe
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="w-[890px] flex flex-col items-start justify-start gap-[20px] text-xs text-lightgray font-h3-work-sans">
-            <div className="self-stretch relative box-border h-px border-t-[1px] border-solid border-caption-label-text" />
-            <div className="self-stretch relative leading-[110%]" />
-          </div>
+        <div className="absolute top-[1000px] left-[0px] bg-background-secondary ">
+        <Footer1 />
         </div>
         <div className="upload-section">
   <label htmlFor="image-upload" className="custom-upload-area cursor-pointer">
     <UploadArea fileuploaded={fileuploaded}/>
-    <div className="absolute top-[143px] left-[149px] leading-[140%] capitalize font-semibold flex items-center w-[460px]">
-    Upload Image
-    </div>
+    <div className="absolute top-[450px] left-[149px] w-full bg-gray-300 rounded-full h-4 overflow-hidden z-10">
+    <div className="h-full bg-green" style={{ width: `${uploadProgress}%` }}></div>
+</div>
+    
+
     <div className="absolute top-[305px] left-[149px] leading-[140%] capitalize font-semibold flex items-center w-[460px]">
     {/* {imageFiles.length === 0 ? "Upload Image" : imageFiles.join(', ')} */}
     {imageFiles.length === 0 ? (
@@ -578,7 +553,9 @@ const handlePayment = async () => {
     onChange={(e) => handleImageUpload(e.target.files)} 
     style={{ display: 'none' }}
   />
+
 </div>
+
 
 <div className="upload-section ">
   <label htmlFor="pdf-upload" className="custom-upload-area cursor-pointer">
@@ -603,6 +580,9 @@ const handlePayment = async () => {
     onChange={(e) => handlePdfUpload(e.target.files)} 
     style={{ display: 'none' }}
   />
+  <div className="absolute top-[1000px] left-[149px] w-full bg-gray-300 rounded-full h-4 overflow-hidden z-10">
+    <div className="h-full bg-green" style={{ width: `${uploadProgress}%` }}></div>
+</div>
 </div>
 
 

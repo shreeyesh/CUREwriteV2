@@ -5,6 +5,7 @@ import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
 import AlertPopup from "../components/AlertPopup";
 import PortalPopup from "../components/PortalPopup";
 import Loader from "../components/Loader";
+import Footer1 from "../components/Footer1";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 
@@ -63,39 +64,60 @@ const CreateAccountDesktop = () => {
  async function RegisterUser(){
   setLoadingContent("Creating Account...")
   setIsLoading(true);
+
+   // Check if username is valid
+   if (usernameTaken===true){
+    setAlert("Username not available.");
+    openAlertPopup();
+    setIsLoading(false);
+    return;
+  }
+
+  // Check if username is added
+  if (!username){
+    setAlert("Please enter a username.");
+    openAlertPopup();
+    setIsLoading(false);
+    return;
+  }
+  //Check password length and complexity
+  // if (password.length<8){
+  //   setAlert("Password must be at least 8 characters long.");
+  //   openAlertPopup();
+  //   setIsLoading(false);
+  //   return;
+  // }
+    
+  // Check if name is added
+  if (!name){
+    setAlert("Please enter your name.");
+    openAlertPopup();
+    setIsLoading(false);
+    return;
+  }
+
+  // Check if email format is valid
+  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  if (!emailRegex.test(email)) {
+      setAlert("Enter a valid email address.");
+      openAlertPopup();
+      setIsLoading(false);
+      return;
+  }
+
   if(password){
-  if (password !== confirmPassword) {
-    setAlert("Passwords do not match.");
-    openAlertPopup()
+    if (password !== confirmPassword) {
+      setAlert("Passwords do not match.");
+      openAlertPopup()
+      setIsLoading(false);
         return;
 }
   } else{
     setAlert("Please enter a password")
     openAlertPopup()
+    setIsLoading(false);
     return;
   }
-
-    // Check if email format is valid
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    if (!emailRegex.test(email)) {
-        setAlert("Enter a valid email address.");
-        openAlertPopup();
-        return;
-    }
-
-    // Check if username is valid
-    if (usernameTaken===true){
-      setAlert("Username not available.");
-      openAlertPopup();
-      return;
-    }
-
-    // Check if name is added
-    if (!name){
-      setAlert("Please enter your name.");
-      openAlertPopup();
-      return;
-    }
 
      const requestOptions = {
       method: 'POST',
@@ -363,7 +385,7 @@ const CreateAccountDesktop = () => {
           </div>
         </div>
       </div>
-      <div className="self-stretch bg-background-secondary flex flex-col py-10 px-[195px] items-center justify-start gap-[30px] text-3xl font-base-body-space-mono">
+      {/* <div className="self-stretch bg-background-secondary flex flex-col py-10 px-[195px] items-center justify-start gap-[30px] text-3xl font-base-body-space-mono">
         <div className="flex flex-row items-start justify-between">
           <div className="w-[327.41px] flex flex-col py-0 pr-[84px] pl-0 box-border items-start justify-start gap-[30px] text-base text-lightgray font-h3-work-sans">
             <img className="relative w-30 h-10" alt="" src="/cwLogo@2x.png" />
@@ -449,12 +471,13 @@ const CreateAccountDesktop = () => {
           <div className="self-stretch relative box-border h-px border-t-[1px] border-solid border-caption-label-text" />
           <div className="self-stretch relative leading-[110%]" />
         </div>
-        {isAlertPopupOpen && (
+      </div> */}
+      <Footer1 />
+      {isAlertPopupOpen && (
         <PortalPopup placement="Bottom right" onOutsideClick={closeAlertPopup}>
           <AlertPopup onClose={closeAlertPopup} alert={alert} />
         </PortalPopup>
       )}
-      </div>
     </div>
   );
 };

@@ -298,12 +298,12 @@ useEffect(() => {
           <div className="flex-1 flex flex-col items-start justify-start gap-[10px]">
             <div className="self-stretch flex flex-row items-start justify-start">
               <div className="flex-1 relative leading-[120%] capitalize font-semibold">
-                Top creators
+                Top Researchers
               </div>
             </div>
             <div className="self-stretch flex flex-row items-start justify-start text-3xl">
               <div className="flex-1 relative leading-[160%] capitalize">
-                Checkout Top Rated Creators on the Research Marketplace
+                Checkout Top Rated Researchers on the Research Marketplace
               </div>
             </div>
           </div>

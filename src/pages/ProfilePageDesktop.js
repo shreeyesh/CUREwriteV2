@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import PortalPopup from "../components/PortalPopup";
 import AlertPopup from "../components/AlertPopup";
 import Loader from "../components/Loader";
+import Footer1 from "../components/Footer1";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 
@@ -787,7 +788,7 @@ const handleSaveClick = async () => {
   }
         </div>
         </div>
-      <Footer />
+      <Footer1 />
       {isAlertPopupOpen && (
         <PortalPopup placement="Bottom right" onOutsideClick={closeAlertPopup}>
           <AlertPopup onClose={closeAlertPopup} alert={alert} />

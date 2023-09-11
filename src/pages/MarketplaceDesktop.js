@@ -5,6 +5,7 @@ import Tab from "../components/Tab";
 import PaperCard from "../components/PaperCard";
 import CategoriesTab from "../components/CategoriesTab";
 import Loader from "../components/Loader";
+import Footer1 from "../components/Footer1";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 const MarketplaceDesktop = () => {
@@ -252,88 +253,9 @@ useEffect(() => {
 
       </div>
       {/* div check */}
-      <div className="self-stretch bg-background-secondary flex flex-col py-10 px-[195px] items-center justify-start gap-[30px] font-base-body-space-mono">
-        <div className="flex flex-row items-start justify-between">
-          <div className="w-[327.41px] flex flex-col py-0 pr-[84px] pl-0 box-border items-start justify-start gap-[30px] text-base text-lightgray font-h3-work-sans">
-            <img className="relative w-30 h-10" alt="" src="/cwLogo@2x.png" />
-            <div className="flex flex-col items-start justify-start gap-[20px]">
-              <div className="relative leading-[140%] inline-block w-[238px]">
-                Write and Buy Research Papers on Curewrite
-              </div>
-              <div className="flex flex-col items-start justify-start gap-[15px]">
-                <div className="relative leading-[140%] inline-block w-[238px] h-[18px] shrink-0">
-                  Join our community
-                </div>
-                <div className="flex flex-row items-start justify-start gap-[10px]">
-                  <img
-                    className="relative w-8 h-8 cursor-pointer"
-                    alt=""
-                    src="/discordlogo3.svg"
-                    onClick={onDiscordLogoIconClick}
-                  />
-                  <img
-                    className="relative w-8 h-8 cursor-pointer"
-                    alt=""
-                    src="/youtubelogo2.svg"
-                    onClick={onYoutubeLogoIconClick}
-                  />
-                  <img
-                    className="relative w-8 h-8 cursor-pointer"
-                    alt=""
-                    src="/twitterlogo3.svg"
-                    onClick={onTwitterLogoIconClick}
-                  />
-                  <img
-                    className="relative w-8 h-8 cursor-pointer"
-                    alt=""
-                    src="/instagramlogo2.svg"
-                    onClick={onInstagramLogoIconClick}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="w-60 flex flex-col items-start justify-start gap-[25px]">
-            <b className="relative leading-[160%] capitalize">Explore</b>
-            <div className="flex flex-col items-start justify-start gap-[20px] text-base text-lightgray font-h3-work-sans">
-              <div className="relative leading-[140%]">Marketplace</div>
-              <div className="relative leading-[140%]">Rankings</div>
-              <div className="relative leading-[140%]">Editors</div>
-            </div>
-          </div>
-          <div className="flex flex-col items-start justify-start gap-[25px]">
-            <b className="relative leading-[160%] capitalize">
-              Join our weekly digest
-            </b>
-            <div className="flex flex-col items-start justify-start gap-[20px] text-base text-lightgray font-h3-work-sans">
-              <div className="relative leading-[140%] inline-block w-[330px]">{`Get exclusive promotions & updates straight to your inbox.`}</div>
-              <div className="rounded-xl bg-text w-[420px] h-[60px] flex flex-row py-4 pr-0 pl-5 box-border items-center justify-start gap-[12px] text-background">
-                <div className="flex-1 relative leading-[140%]">
-                  Enter your email here
-                </div>
-                <div
-                  className="rounded-xl bg-call-to-action h-[60px] flex flex-row py-0 px-[50px] box-border items-center justify-end gap-[12px] cursor-pointer text-center text-text"
-                  onClick={onButtonContainerClick}
-                >
-                  <img
-                    className="relative w-5 h-5 hidden"
-                    alt=""
-                    src="/envelopesimple3.svg"
-                  />
-                  <div className="relative leading-[140%] font-semibold">
-                    Subscribe
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="w-[890px] flex flex-col items-start justify-start gap-[20px] text-xs text-lightgray font-h3-work-sans">
-          <div className="self-stretch relative box-border h-px border-t-[1px] border-solid border-caption-label-text" />
-          <div className="self-stretch relative leading-[110%]" />
-        </div>
+
+      <Footer1 />
       </div>
-    </div>
   );
 };
 

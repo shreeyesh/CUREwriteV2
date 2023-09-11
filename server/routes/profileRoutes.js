@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Profile = require('../models/profile');
 const Post = require('../models/post');
+const Subscriber = require('../models/subscriber');
 const multer = require("multer");
 const { Storage } = require('@google-cloud/storage');
 const { error, profile } = require('console');
@@ -220,6 +221,19 @@ router.get('/checkFollow/:username', async (req, res) => {
             res.status(500).json({ status: 'error', message: error.message });
         }
     
+});
+
+// Subscribe endpoint for new subscribers
+router.post('/subscribe', async (req, res) => {
+    const email = req.body.email;
+    console.log("here",email)
+    try {
+        const subscriber = new Subscriber({ subscriber: email });
+        await subscriber.save();
+        res.json({ status: 'ok', message: 'Subscribed successfully' });
+    } catch (error) {
+        res.status(500).json({ status: 'error', message: error.message });
+    }
 });
 
 
