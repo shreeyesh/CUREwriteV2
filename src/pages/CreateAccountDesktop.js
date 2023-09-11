@@ -1,10 +1,12 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation1 from "../components/Navigation1";
 import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
-// import { response } from "express";
-// require('dotenv').config()
-// dotenv.config();
+import AlertPopup from "../components/AlertPopup";
+import PortalPopup from "../components/PortalPopup";
+import Loader from "../components/Loader";
+const backendURL = process.env.REACT_APP_BACKEND_URL;
+
 
 
 const CreateAccountDesktop = () => {
@@ -14,6 +16,11 @@ const CreateAccountDesktop = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [alert,setAlert]=useState('')
+  const [isAlertPopupOpen, setAlertPopupOpen] = useState(false);
+  const [usernameTaken,setUsernameTaken] = useState(false);
+  const [isLoading,setIsLoading] = useState(false);
+  const [loadingContent, setLoadingContent] = useState('');
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleNameChange = (e) => setName(e.target.value);
@@ -21,24 +28,93 @@ const CreateAccountDesktop = () => {
   const handlePasswordChange = (e) => setPassword(e.target.value);
   const handleConfirmPasswordChange = (e) => setConfirmPassword(e.target.value);
 
+  const openAlertPopup = useCallback(() => {
+    setAlertPopupOpen(true);
+  }, []);
+
+  const closeAlertPopup = useCallback(() => {
+    setAlertPopupOpen(false);
+  }, []);
+
   const navigate = useNavigate();
 
+  // Check username is not taken
+  useEffect(()=>{
+    async function checkUsername(){
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username })
+    };
+     const response = await fetch(`${backendURL}/checkUsername`, requestOptions)
+     const data = await response.json();
+     if (data.error==="Username Taken"){
+        setUsernameTaken(true);
+    } else {
+      setUsernameTaken(false);
+    }
+    }
+    if (username){
+      checkUsername()
+    }
+
+  }),[username]
+
  async function RegisterUser(){
+  setLoadingContent("Creating Account...")
+  setIsLoading(true);
+  if(password){
+  if (password !== confirmPassword) {
+    setAlert("Passwords do not match.");
+    openAlertPopup()
+        return;
+}
+  } else{
+    setAlert("Please enter a password")
+    openAlertPopup()
+    return;
+  }
+
+    // Check if email format is valid
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(email)) {
+        setAlert("Enter a valid email address.");
+        openAlertPopup();
+        return;
+    }
+
+    // Check if username is valid
+    if (usernameTaken===true){
+      setAlert("Username not available.");
+      openAlertPopup();
+      return;
+    }
+
+    // Check if name is added
+    if (!name){
+      setAlert("Please enter your name.");
+      openAlertPopup();
+      return;
+    }
+
      const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username,name,email,password })
   };
-   const response = await fetch('http://localhost:1337/register', requestOptions)
+   const response = await fetch(`${backendURL}/register`, requestOptions)
    const data = await response.json();
+   console.log(data)
    if (data.user){
     localStorage.setItem('token',data.user);
     localStorage.setItem('username', data.username); // Store username
     navigate("/create-post");
   }
-  else{
-    alert("Failed to create account")
+   else {
+    setAlert(data.error);
+    openAlertPopup();
   }
+  setIsLoading(false)
   }
   
   async function handleGoogleSuccess(credentialResponse) {
@@ -49,7 +125,7 @@ const CreateAccountDesktop = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: credentialResponse.credential })
     };
-    const response = await fetch('http://localhost:1337/google-login', requestOptions);
+    const response = await fetch(`${backendURL}/google-login`, requestOptions);
     const data = await response.json();
     if (data.user){
       localStorage.setItem('token',data.user);
@@ -99,6 +175,7 @@ const CreateAccountDesktop = () => {
 
   return (
     <div className="relative bg-background w-full h-[1125px] flex flex-col items-start justify-start text-left text-32xl text-text font-h3-work-sans">
+      <Loader isOpen={isLoading} content={loadingContent} />
       <Navigation1
         navigationPosition="unset"
         navigationWidth="unset"
@@ -161,8 +238,13 @@ const CreateAccountDesktop = () => {
                   src="/eyeslash1.svg"
                 />
               </div>
+
               <div className="self-stretch rounded-xl bg-text box-border h-[46px] flex flex-row py-4 px-5 items-center justify-start gap-[12px] border-[1px] border-solid border-caption-label-text">
+                {!usernameTaken?
                 <img className="relative w-5 h-5" alt="" src="/user1.svg" />              
+                :
+                <img className="relative w-5 h-5" alt="" src="/cancel.png" />              
+                }
                 <div className="flex-1 relative leading-[140%]" >  <input
               type="text"
               value={username}
@@ -367,6 +449,11 @@ const CreateAccountDesktop = () => {
           <div className="self-stretch relative box-border h-px border-t-[1px] border-solid border-caption-label-text" />
           <div className="self-stretch relative leading-[110%]" />
         </div>
+        {isAlertPopupOpen && (
+        <PortalPopup placement="Bottom right" onOutsideClick={closeAlertPopup}>
+          <AlertPopup onClose={closeAlertPopup} alert={alert} />
+        </PortalPopup>
+      )}
       </div>
     </div>
   );

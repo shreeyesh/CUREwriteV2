@@ -283,7 +283,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -343,7 +343,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -403,7 +403,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -463,7 +463,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -523,7 +523,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -583,7 +583,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -643,7 +643,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -703,7 +703,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -763,7 +763,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -823,7 +823,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -883,7 +883,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -943,7 +943,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -1003,7 +1003,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -1063,7 +1063,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -1123,7 +1123,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -1183,7 +1183,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -1243,7 +1243,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>
@@ -1303,7 +1303,7 @@ const RankingsDesktop = () => {
               </div>
               <div className="w-40 overflow-hidden shrink-0 flex flex-col items-start justify-start">
                 <div className="self-stretch relative leading-[140%]">
-                  1240 USD
+                  1240 INR
                 </div>
               </div>
             </div>

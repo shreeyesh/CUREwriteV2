@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import LoginPopup from "../components/LoginPopup";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 
 
@@ -54,7 +55,7 @@ function Dashboard() {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
       }
-      const approved = await fetch(`http://localhost:1337/approve-post/${id}`, requestOptions);
+      const approved = await fetch(`${backendURL}/approve-post/${id}`, requestOptions);
       alert("Approved post!")
     }
   
@@ -68,7 +69,7 @@ function Dashboard() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ comment: reviewComments[currentRejectId] }),
       }
-      const rejected = await fetch(`http://localhost:1337/reject-post/${currentRejectId}`, requestOptions);
+      const rejected = await fetch(`${backendURL}/reject-post/${currentRejectId}`, requestOptions);
       setCurrentRejectId(null);
     }
 
@@ -81,7 +82,7 @@ function Dashboard() {
     }
   
     useEffect(() => {
-      fetch('http://localhost:1337/posts-for-review')
+      fetch(`${backendURL}/posts-for-review`)
         .then(response => response.json())
         .then(data => setPosts(data))
         .catch(error => console.error("Error fetching posts for review:", error));

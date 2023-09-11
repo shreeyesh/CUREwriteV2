@@ -2,3 +2,9 @@ node_modules
 server/node_modules
 server/.env
 .env
+config.json
+.env.development
+.env.production
+server/.env.development
+server/.env.production
+tailwind.config.js

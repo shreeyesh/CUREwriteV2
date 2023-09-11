@@ -2,16 +2,16 @@ import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation1 from "../components/Navigation1";
 import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
-import CreateAccountDesktop from "./CreateAccountDesktop";
-// import { response } from "express";
-// require('dotenv').config()
-// dotenv.config();
+const backendURL = process.env.REACT_APP_BACKEND_URL;
+import Loader from "../components/Loader";
 
 
 const LoginAccount = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading,setIsLoading] = useState(false);
+  const [content, setContent] = useState('');
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -24,7 +24,7 @@ const LoginAccount = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email,password })
   };
-   const response = await fetch('http://localhost:1337/login', requestOptions)
+   const response = await fetch(`${backendURL}/login`, requestOptions)
   const data = await response.json()
   if (data.user){
     localStorage.setItem('token',data.user);
@@ -38,19 +38,21 @@ const LoginAccount = () => {
   }
   
   async function handleGoogleSuccess(credentialResponse) {
-
+    setContent("Logging in using Google")
+    setIsLoading(true)
     // Send the token to your backend for verification
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: credentialResponse.credential })
     };
-    const response = await fetch('http://localhost:1337/google-login', requestOptions);
+    const response = await fetch(`${backendURL}/google-login`, requestOptions);
     const data = await response.json();
     if (data.user){
       localStorage.setItem('token',data.user);
       localStorage.setItem('username', data.username); // Store username
       localStorage.setItem('userPfp',data.userPfp);
+      setIsLoading(false)
       navigate("/create-post");
     }
     else{
@@ -95,6 +97,7 @@ const LoginAccount = () => {
 
   return (
     <div className="relative bg-background w-full h-[1125px] flex flex-col items-start justify-start text-left text-32xl text-text font-h3-work-sans">
+      <Loader isOpen={isLoading} content={content} />
       <Navigation1
         navigationPosition="unset"
         navigationWidth="unset"

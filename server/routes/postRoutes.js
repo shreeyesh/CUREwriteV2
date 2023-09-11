@@ -7,9 +7,19 @@ const Post = require('../models/post');
 const Profile = require('../models/profile');
 const nodemailer = require('nodemailer');
 
-const storage = new Storage({
-    projectId: process.env.GCP_PROJECT_ID
-});
+let storage;
+
+// if (process.env.NODE_ENV === 'development') {
+//       // Local environment
+//       storage = new Storage({
+//         projectId: process.env.GCP_PROJECT_ID,
+//         keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
+//     });
+// } else {
+    storage = new Storage();  // In GCP, the credentials will be automatically inferred.
+// }
+
+console.log("env: ",process.env.NODE_ENV)
 
 const multerUpload = multer({ storage: multer.memoryStorage() });
 
@@ -25,7 +35,6 @@ const transporter = nodemailer.createTransport({
 router.post('/upload-images', multerUpload.array('images', 10), async (req, res) => {
     try {
         const bucket = storage.bucket(process.env.GCS_BUCKET_NAME);
-
         let urls = [];  // To store the public URLs of the uploaded files
 
         await Promise.all(req.files.map(async file => {
@@ -33,9 +42,10 @@ router.post('/upload-images', multerUpload.array('images', 10), async (req, res)
             const blobStream = blob.createWriteStream({ resumable: false });
 
             blobStream.on('error', err => {
-                console.error('GCS Upload Error:', err);
-                throw new Error('Upload to GCS failed:', err.message);
+                console.error('GCS Upload Error:', err);  // This should log the actual error details
+                throw new Error(`Upload to GCS failed: ${err.message}`);
             });
+            
 
             await new Promise((resolve, reject) => {
                 blobStream.on('finish', () => {
@@ -100,7 +110,7 @@ const razorpay = new Razorpay({
 router.post("/create-order", async (req, res) => {
     try {
       const options = {
-        amount: 100,  // Amount in paise (1 Rs = 100 paise)
+        amount: 5000*100,  // Amount in paise (1 Rs = 100 paise)
         currency: "INR",
         receipt: "order_rcptid_11",  // Optional receipt number
       };

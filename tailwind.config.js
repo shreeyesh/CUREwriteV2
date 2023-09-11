@@ -1,9 +1,19 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   mode: 'jit',
   theme: {
     extend: {
+      keyframes: {
+        blink: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        }
+      },
+      animation: {
+        blink: 'blink 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
       colors: {
         gray: "rgba(255, 255, 255, 0.1)",
         darkslategray: "rgba(59, 59, 59, 0.5)",

@@ -4,9 +4,13 @@ import Navigation1 from "../components/Navigation1";
 import Tab from "../components/Tab";
 import PaperCard from "../components/PaperCard";
 import CategoriesTab from "../components/CategoriesTab";
+import Loader from "../components/Loader";
+const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 const MarketplaceDesktop = () => {
   const [posts, setPosts] = useState([]);
+  const [isLoading,setIsLoading] = useState(true);
+  const [loadingContent, setLoadingContent] = useState('');
   const [searchInput, setSearchInput] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [catTab,setCatTab] = useState(false);
@@ -59,17 +63,16 @@ const PostTabClick = () =>{
     navigate("/");
   }, [navigate]);
 
-  // const onPaperCardContainerClick = useCallback(() => {
-  //   navigate("/paper-page");
-  // }, [navigate]);
 
 // Fetch posts
 useEffect(() => {
+  setLoadingContent("Loading Papers")
   const fetchPosts = async () => {
-    const response = await fetch("http://localhost:1337/posts");
+    const response = await fetch(`${backendURL}/posts`);
     const data = await response.json();
     setPosts(data.posts.reverse());
     setSearchResults(data.posts);
+    setIsLoading(false);
   };
   fetchPosts();
 }, []);
@@ -98,6 +101,7 @@ useEffect(() => {
 
   return (
     <div className="relative bg-background w-full flex flex-col items-start justify-start text-left text-3xl text-text font-h3-work-sans">
+      <Loader isOpen={isLoading} content={loadingContent} />
       <Navigation1
         onNavLogoClick={onNavLogoClick}
         navigationPosition="unset"

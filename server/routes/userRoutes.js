@@ -8,11 +8,16 @@ const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 router.post("/register", async (req,res) => {
     try{
+        // const uniqueEmail = User.findOne({email:req.body.email})
+        // if (uniqueEmail){
+        //     res.json({status : "error", error : 'Duplicate Email'})
+        // }
          await User.create({
             username: req.body.username,
             name:req.body.name,
             email: req.body.email,
             password: req.body.password,
+            role: 'user',
             authType: 'local'
         })
         const token = jwt.sign({
@@ -38,9 +43,27 @@ router.post("/register", async (req,res) => {
         res.json({status : "ok", user:token,username:req.body.username})
     }catch(err){
         console.log(err);
-        res.json({status : "error", error : 'Duplicate Email'})
+        res.json({status : "error", error : 'Email already in use'})
     }
 })
+
+// Check for username-taken
+router.post("/checkUsername", async (req,res) => {
+    try{
+        const username = req.body.username;
+        const user = await Profile.findOne({username:username});
+        if (user){
+            res.json({status : "error", error : 'Username Taken'})
+        }
+        else{
+            res.json({status : "ok"})
+        }
+    }catch(err){
+        console.log(err);
+        res.json({status : "error", error : err})
+    }
+})
+
 router.post('/login', async (req,res) => {
        const user = await User.findOne({email: req.body.email, password : req.body.password})
     if (user){
@@ -121,6 +144,7 @@ router.post("/google-login", async (req, res) => {
             name:name,
             email: email,
             password: 'google-authenticated-user',
+            role: 'user',
             authType: 'google'
         });
     }

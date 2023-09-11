@@ -6,6 +6,7 @@ import PaperCard from "../components/PaperCard";
 import Loader from "../components/Loader";
 import PortalPopup from "../components/PortalPopup";
 import AlertPopup from "../components/AlertPopup";
+const backendURL = process.env.REACT_APP_BACKEND_URL;
 
  
 
@@ -14,7 +15,8 @@ const PaperPageDesktop = () => {
   const {id} = useParams();
 
   const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading,setIsLoading] = useState(true);
+  const [loadingContent, setLoadingContent] = useState('');
   const [profile,setProfile] = useState({  username: 'username',
   bio: 'bio',
   profilePicture: '',
@@ -39,8 +41,9 @@ const PaperPageDesktop = () => {
 
   // Fetch Post by id
   useEffect(()=>{
+    setLoadingContent("Loading Paper")
     const fetchPostByID = async ()=>{
-    const resp = await fetch(`http://localhost:1337/post/${id}`)
+    const resp = await fetch(`${backendURL}/post/${id}`)
      const data0 = await resp.json(); 
         setPost(data0.post);
         if (data0.post.price===0){
@@ -50,7 +53,7 @@ const PaperPageDesktop = () => {
           setPaperPurchased(true);
       }
         const username = data0?.post?.username;
-        const response = await fetch(`http://localhost:1337/profile/${username}`,{
+        const response = await fetch(`${backendURL}/profile/${username}`,{
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -58,9 +61,9 @@ const PaperPageDesktop = () => {
         });
         const data = await response.json();
         setProfile(data.profile)
-        setLoading(false);
+        setIsLoading(false);
         // Fetch posts by user
-        const response1 = await fetch(`http://localhost:1337/post/email/${data.profile.email}`, {
+        const response1 = await fetch(`${backendURL}/post/email/${data.profile.email}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -83,7 +86,7 @@ const PaperPageDesktop = () => {
 useEffect(()=>
 {
   const verifyUserLogin = async() => {
-    const response = await fetch(`http://localhost:1337/verifyUserLogin/${token}`,{
+    const response = await fetch(`${backendURL}/verifyUserLogin/${token}`,{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +127,7 @@ useEffect(()=>
       const orderData = {
         price : post.price
       }
-      const response = await fetch('http://localhost:1337/create-order-paper', {
+      const response = await fetch(`${backendURL}/create-order-paper`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(orderData)
@@ -146,7 +149,7 @@ useEffect(()=>
           id:post._id,
           BuyerId: buyerId,
         };
-        const verifyPaymentResponse = await fetch('http://localhost:1337/verify-payment-paper', {
+        const verifyPaymentResponse = await fetch(`${backendURL}/verify-payment-paper`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(paymentData)
@@ -254,6 +257,7 @@ useEffect(()=>
   return (
     
     <div className="relative bg-background w-full flex flex-col items-start justify-start text-left text-32xl text-text font-h3-work-sans overflow-x-clip">
+      <Loader isOpen={isLoading} content={loadingContent} />
       <Navigation1
         navigationPosition="unset"
         navigationWidth="unset"
@@ -281,9 +285,6 @@ useEffect(()=>
         src={post?post.image:"/image-11@2x.png"}
         />
       <div className="self-stretch bg-background-secondary flex flex-col py-10 px-0 items-center justify-start">
-      {loading ? (
-      <Loader />
-    ) : (
         <div className="w-[1050px] flex flex-col items-start justify-start">
           <div className="self-stretch flex flex-row items-start justify-start gap-[150px]">
             <div className="flex-1 flex flex-col items-center justify-start gap-[30px]">
@@ -432,7 +433,7 @@ useEffect(()=>
                   <div className="flex-1 flex flex-col  items-start justify-start gap-[5px]">
                     <b className="self-stretch relative leading-[120%] capitalize">
                       {" "}
-                      $
+                      ₹
                     </b>
                   </div>
                   <b className="relative text-9xl leading-[140%] capitalize hidden" />
@@ -467,7 +468,6 @@ useEffect(()=>
             </div>
           </div>
         </div>
-    )}
       </div>
       <div
         className="self-stretch bg-text flex flex-col py-20 px-[195px] items-center justify-start gap-[60px] text-19xl text-background-secondary"

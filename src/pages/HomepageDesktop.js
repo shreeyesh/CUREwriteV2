@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation1 from "../components/Navigation1";
 import CollectionCard from "../components/CollectionCard";
@@ -12,6 +12,13 @@ import Footer1 from "../components/Footer1";
 
 const HomepageDesktop = () => {
   const navigate = useNavigate();
+  const id = '64fea5c609e73d567ed1f507';
+
+
+  const backendURL = process.env.REACT_APP_BACKEND_URL;
+  const [adPost,setAdPost] = useState([])
+  const [isLoading,setIsLoading] = useState(false);
+  const [loadingContent, setLoadingContent] = useState('');
 
   const onNavLogoClick = useCallback(() => {
     navigate("/");
@@ -71,84 +78,8 @@ const handleCategoryClick = (categoryName) => {
     navigate("/paper-page");
   }, [navigate]);
 
-  const onPrimaryPhotoPlaceholder1Click = useCallback(() => {
-    navigate("/paper-page");
-  }, [navigate]);
-
-  const onSecondaryPhotoPlaceholder2Click = useCallback(() => {
-    navigate("/paper-page");
-  }, [navigate]);
-
-  const onSecondaryPhotoPlaceholder3Click = useCallback(() => {
-    navigate("/paper-page");
-  }, [navigate]);
-
-  const onNumberOfAdditionalPapers1Click = useCallback(() => {
-    navigate("/paper-page");
-  }, [navigate]);
-
-  const onAvatarContainer2Click = useCallback(() => {
-    navigate("/profile-page");
-  }, [navigate]);
-
   const onViewRankingsContainerClick = useCallback(() => {
     navigate("/rankings");
-  }, [navigate]);
-
-  const onArtistCardContainer6Click = useCallback(() => {
-    navigate("/profile-page");
-  }, [navigate]);
-
-  const onArtistCardContainer7Click = useCallback(() => {
-    navigate("/profile-page");
-  }, [navigate]);
-
-  const onArtistCardContainer10Click = useCallback(() => {
-    navigate("/profile-page");
-  }, [navigate]);
-
-  const onArtistCardContainer13Click = useCallback(() => {
-    navigate("/profile-page");
-  }, [navigate]);
-
-  const onArtistCardContainer14Click = useCallback(() => {
-    navigate("/profile-page");
-  }, [navigate]);
-
-  const onArtistCardContainer15Click = useCallback(() => {
-    navigate("/profile-page");
-  }, [navigate]);
-
-  const onCategoryCardContainerClick = useCallback(() => {
-    navigate("/marketplace");
-  }, [navigate]);
-
-  const onCategoryCardContainer1Click = useCallback(() => {
-    navigate("/marketplace");
-  }, [navigate]);
-
-  const onCategoryCardContainer2Click = useCallback(() => {
-    navigate("/marketplace");
-  }, [navigate]);
-
-  const onCategoryCardContainer3Click = useCallback(() => {
-    navigate("/marketplace");
-  }, [navigate]);
-
-  const onCategoryCardContainer4Click = useCallback(() => {
-    navigate("/marketplace");
-  }, [navigate]);
-
-  const onCategoryCardContainer5Click = useCallback(() => {
-    navigate("/marketplace");
-  }, [navigate]);
-
-  const onCategoryCardContainer6Click = useCallback(() => {
-    navigate("/marketplace");
-  }, [navigate]);
-
-  const onCategoryCardContainer7Click = useCallback(() => {
-    navigate("/marketplace");
   }, [navigate]);
 
   const onButtonContainer1Click = useCallback(() => {
@@ -159,31 +90,22 @@ const handleCategoryClick = (categoryName) => {
     navigate("/profile-page");
   }, [navigate]);
 
-  const onButtonContainer2Click = useCallback(() => {
-    navigate("/paper-page");
+  const onAdClick = useCallback(() => {
+    navigate(`/paper-page/${id}`);
   }, [navigate]);
 
-  const onDiscordLogoIconClick = useCallback(() => {
-    window.open("https://discord.com/invite/eQxkYTNxSp");
-  }, []);
-
-  const onYoutubeLogoIconClick = useCallback(() => {
-    window.open("https://www.youtube.com/channel/UCXqr0Ca-b73rU9zcpSBJ5cw");
-  }, []);
-
-  const onTwitterLogoIconClick = useCallback(() => {
-    window.open("https://twitter.com/curewrite?lang=en");
-  }, []);
-
-  const onInstagramLogoIconClick = useCallback(() => {
-    window.open("https://www.instagram.com/curewrite/?hl=en");
-  }, []);
-
-  const onButtonClick = useCallback(() => {
-    window.open(
-      "https://www.curewrite.com/?utm_source=figma-samples&utm_campaign=figma-Papermarket&utm_medium=figma-samples"
-    );
-  }, []);
+  // Fetch Ad post
+useEffect(() => {
+  setLoadingContent("Loading Papers")
+  const fetchPosts = async () => {
+    const response = await fetch(`${backendURL}/post/${id}`);
+    const data = await response.json();
+    setAdPost(data.post);
+    setIsLoading(false);
+    console.log("data  :",data)
+  };
+  fetchPosts();
+}, []);
 
   const artistData = dummydata.artistData;
   const paperData = dummydata.paperCard;
@@ -215,27 +137,28 @@ const handleCategoryClick = (categoryName) => {
         hasText
       />
             <section className="self-stretch bg-text flex flex-row py-20 px-[195px] items-center justify-center text-left text-48xl text-text font-h3-work-sans">
-        <div className="flex-1 flex flex-row items-start justify-start gap-[30px] sm:flex-col sm:gap-[30px] sm:items-start sm:justify-start">
-          <div className="flex-1 h-[218px] flex flex-col items-center justify-center gap-[30px] sm:flex-[unset] sm:self-stretch">
-            <div className="self-stretch hidden flex-col items-start justify-start">
-              <div className="flex-1 relative leading-[110%] capitalize font-semibold hidden items-center w-[510px]">
-                Publish and buy research papers as Paper.
-              </div>
-            </div>
-            <div
-              className="rounded-xl bg-call-to-action h-[60px] flex flex-row py-0 px-[50px] box-border items-center justify-start gap-[12px] cursor-pointer text-center text-base"
-              onClick={onButtonContainerClick}
-            >
-              <img
-                className="relative w-5 h-5"
-                alt=""
-                src="/rocketlaunch1.svg"
-              />
-              <div className="relative leading-[140%] font-semibold inline-block w-[92px] shrink-0">
-                Get Started
-              </div>
-            </div>
-            <div className="self-stretch rounded-xl flex flex-row items-start justify-start gap-[30px] text-9xl text-background-secondary font-base-body-space-mono sm:flex-col sm:gap-[15px] sm:items-start sm:justify-start">
+            <div className="flex-1 flex flex-row items-start justify-start gap-[30px] sm:flex-col sm:gap-[30px] sm:items-start sm:justify-start">
+    {/* This is the left side div */}
+    <div className="w-1/2 pr-6 h-[218px] flex flex-col items-center justify-center gap-[30px] sm:flex-[unset] sm:self-stretch">
+      <div className="self-stretch flex-wrap absolute h-px">
+        <div className="paper-text text-black relative top-[350px]  leading-[110%] capitalize font-semibold flex items-end w-[616px] pr-4 h-px pb-5 md:pb-4 sm:pb-3">
+          {`Publish and buy medical research papers `}
+        </div>
+      </div>
+      <div
+        className="rounded-xl bg-call-to-action h-[60px] flex flex-row py-0 px-[50px] box-border items-center justify-start gap-[12px] cursor-pointer text-center text-base"
+        onClick={onButtonContainerClick}
+      >
+        <img
+          className="relative w-5 h-5"
+          alt=""
+          src="/rocketlaunch1.svg"
+        />
+        <div className="relative leading-[140%] font-semibold inline-block w-[92px] shrink-0">
+          Get Started
+        </div>
+      </div>
+                  <div className="self-stretch rounded-xl flex flex-row items-start justify-start gap-[30px] text-9xl text-background-secondary font-base-body-space-mono sm:flex-col sm:gap-[15px] sm:items-start sm:justify-start">
               <div className="flex-1 rounded-xl flex flex-col items-start justify-start sm:flex-[unset] sm:self-stretch">
                 <b className="self-stretch relative leading-[140%] capitalize">{`240k+ `}</b>
                 <div className="self-stretch relative text-[23.99px] leading-[160%] capitalize font-h3-work-sans">
@@ -261,7 +184,7 @@ const handleCategoryClick = (categoryName) => {
             </div>
           </div>
           <div
-            className="self-stretch flex-1 flex flex-col items-center justify-between cursor-pointer text-3xl sm:flex-[unset] sm:self-stretch"
+            className="w-1/2 pl-6 self-stretch flex-1 flex flex-col items-center justify-between cursor-pointer text-3xl sm:flex-[unset] sm:self-stretch"
             onClick={onHighlightedPaperContainerClick}
           >
             <div className="rounded-xl bg-background-secondary w-[307px] hidden flex-row p-5 box-border items-center justify-start gap-[12px]">
@@ -337,9 +260,6 @@ const handleCategoryClick = (categoryName) => {
           </div>
         </div>
       </section>
-      <div className="self-stretch relative h-px">
-        <div className="absolute top-[-154px] left-[61px] leading-[110%] capitalize font-semibold flex items-end w-[616px] h-px">{`Publish and buy medical research papers `}</div>
-      </div>
       <section className="self-stretch bg-text h-[846px] overflow-hidden shrink-0 flex flex-col py-20 px-0 box-border items-center justify-start gap-[60px] text-left text-19xl text-background-secondary font-h3-work-sans">
         <div className="self-stretch flex flex-col py-0 px-[50px] items-start justify-start gap-[10px]">
           <div className="self-stretch flex flex-row items-start justify-start">
@@ -446,6 +366,7 @@ const handleCategoryClick = (categoryName) => {
           />))}
         </div>
       </section>
+      {!isLoading?
       <section className="self-stretch h-[814px] flex flex-col py-9 px-[59px] box-border items-start justify-end bg-[url(/public/auctionad@3x.png)] bg-cover bg-no-repeat bg-[top] text-left text-base text-text font-h3-work-sans">
         <div className="w-[670px] flex flex-row items-end justify-center relative">
           <div className="flex-1 flex flex-col items-start justify-start gap-[30px] z-[0]">
@@ -462,14 +383,14 @@ const handleCategoryClick = (categoryName) => {
                   />
                 </div>
               </div>
-              <div className="relative leading-[140%]">Dr Alexandra Martin</div>
+              <div className="relative leading-[140%]">{adPost.username?adPost.username:"username"}</div>
             </div>
             <div className="self-stretch relative text-19xl leading-[120%] capitalize font-semibold">
-              DNA Cloning
+              {adPost.heading}
             </div>
             <div
               className="rounded-xl bg-text h-[60px] flex flex-row py-[22px] px-[50px] box-border items-center justify-center gap-[12px] cursor-pointer text-center text-background"
-              onClick={onButtonContainer2Click}
+              onClick={onAdClick}
             >
               <img className="relative w-5 h-5" alt="" src="/eye.svg" />
               <div className="relative leading-[140%] font-semibold">
@@ -480,25 +401,23 @@ const handleCategoryClick = (categoryName) => {
           <div className="my-0 mx-[!important] absolute top-[104px] left-[900px] rounded-xl bg-darkslategray [backdrop-filter:blur(10px)] w-[295px] flex flex-col py-[30px] pr-[151px] pl-[30px] box-border items-start justify-end z-[1] text-19xl font-base-body-space-mono">
             <div className="self-stretch flex flex-row items-start justify-start gap-[10px]">
               <div className="flex-1 flex flex-col items-start justify-start gap-[5px]">
-                <b className="self-stretch relative leading-[120%] capitalize">
+                <b className="self-stretch relative leading-[140%] capitalize">
                   {" "}
-                  $
+                  ₹
                 </b>
-                <div className="self-stretch flex-1 relative text-xs leading-[110%] hidden">
-                  Hours
-                </div>
               </div>
               <b className="relative text-9xl leading-[140%] capitalize hidden" />
               <div className="flex-1 flex flex-col items-start justify-start gap-[5px]">
                 <b className="relative leading-[120%] capitalize inline-block w-[127px]">
-                  20.50
+                  {adPost.price?adPost.price:null}
                 </b>
                 <div className="self-stretch flex-1 relative text-xs leading-[110%] hidden" />
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </section> : null
+}
       <section className="self-stretch bg-text flex flex-col py-20 px-[195px] items-center justify-start gap-[48px] text-left text-19xl text-background-secondary font-h3-work-sans">
         <div className="self-stretch flex flex-col items-start justify-start gap-[10px]">
           <div className="self-stretch relative leading-[120%] capitalize font-semibold">

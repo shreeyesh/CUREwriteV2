@@ -6,7 +6,7 @@ import Navigation1 from "../components/Navigation1";
 import UploadArea from "../components/UploadArea";
 import jwt_decode from "jwt-decode";
 import LoginPopup from "../components/LoginPopup";
-
+const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 const CreatePostDesktop = () => {
   // State Variables ->
@@ -34,7 +34,7 @@ const CreatePostDesktop = () => {
   
   // local storage
   const userPfp = localStorage.getItem("userPfp");
-
+  
   // Handle file changes for images and PDFs
   const handleImageUpload = async (files) => {
     const formData = new FormData();
@@ -42,7 +42,7 @@ const CreatePostDesktop = () => {
         formData.append('images', file);
     });
     
-    const response = await fetch('http://localhost:1337/upload-images', {
+    const response = await fetch(`${backendURL}/upload-images`, {
         method: 'POST',
         body: formData
     });
@@ -64,7 +64,7 @@ const handlePdfUpload = async (files) => {
         formData.append('pdfs', file);
     });
     
-    const response = await fetch('http://localhost:1337/upload-pdfs', {
+    const response = await fetch(`${backendURL}/upload-pdfs`, {
         method: 'POST',
         body: formData
     });
@@ -128,7 +128,7 @@ const handlePayment = async () => {
   }
 
   try {
-    const response = await fetch('http://localhost:1337/create-order', {
+    const response = await fetch(`${backendURL}/create-order`, {
       method: 'POST'
     });
 
@@ -160,7 +160,7 @@ const handlePayment = async () => {
           postData: postData
         };
 
-        const verifyPaymentResponse = await fetch('http://localhost:1337/verify-payment', {
+        const verifyPaymentResponse = await fetch(`${backendURL}/verify-payment`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(paymentData)
@@ -239,7 +239,7 @@ const handlePayment = async () => {
     return;
   }
     try {
-      const response = await fetch('http://localhost:1337/create-post', {
+      const response = await fetch(`${backendURL}/create-post`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

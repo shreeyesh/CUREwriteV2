@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navigation1 from "../components/Navigation1";
+const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 
 
@@ -21,7 +22,7 @@ const LoginAccountRoles = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email,password })
   };
-   const response = await fetch('http://localhost:1337/login/role', requestOptions)
+   const response = await fetch(`${backendURL}/login/role`, requestOptions)
   const data = await response.json()
   if (data.user){
     localStorage.setItem('token',data.user);

@@ -5,6 +5,9 @@ import PaperCard from "../components/PaperCard";
 import Footer from "../components/Footer";
 import PortalPopup from "../components/PortalPopup";
 import AlertPopup from "../components/AlertPopup";
+import Loader from "../components/Loader";
+const backendURL = process.env.REACT_APP_BACKEND_URL;
+
 
 const ProfilePageDesktop = () => {
   const [profile,setProfile] = useState({  username: 'username',
@@ -35,6 +38,8 @@ const ProfilePageDesktop = () => {
   const [alert,setAlert]= useState('');
   const [isAlertPopupOpen, setAlertPopupOpen] = useState(false);
   const [paperPurchased,setPaperPurchased] = useState(false)
+  const [isLoading,setIsLoading] = useState(false);
+  const [loadingContent,setLoadingContent] = useState('');
   const token = localStorage.getItem("token");
 
 
@@ -56,7 +61,7 @@ const closeAlertPopup = useCallback(() => {
 useEffect(()=>
 {
   const verifyUserLogin = async() => {
-    const response = await fetch(`http://localhost:1337/verifyUserLogin/${token}`,{
+    const response = await fetch(`${backendURL}/verifyUserLogin/${token}`,{
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -86,7 +91,7 @@ useEffect(()=>
 
   const checkFollow = async() => {
     if(loggedIn===true){
-    const response = await fetch(`http://localhost:1337/checkFollow/${username}`,{
+    const response = await fetch(`${backendURL}/checkFollow/${username}`,{
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -138,7 +143,7 @@ const handlepfpUpload = async (files) => {
     formData.append('pfp', file);
   });
 
-  const response = await fetch('http://localhost:1337/upload-pfp', {
+  const response = await fetch(`${backendURL}/upload-pfp`, {
     method: 'POST',
     body: formData
   });
@@ -156,7 +161,7 @@ const handleCoverUpload = async (files) => {
     formData.append('cover', file);
   });
 
-  const response = await fetch('http://localhost:1337/upload-cover', {
+  const response = await fetch(`${backendURL}/upload-cover`, {
     method: 'POST',
     body: formData
   });
@@ -231,7 +236,7 @@ const handleFollowClick = async () => {
 
   
   try {
-    const response = await fetch(`http://localhost:1337/follow/${username}`, {
+    const response = await fetch(`${backendURL}/follow/${username}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -264,7 +269,7 @@ const handleUnfollowClick = async () => {
 
   
   try {
-    const response = await fetch(`http://localhost:1337/unfollow/${username}`, {
+    const response = await fetch(`${backendURL}/unfollow/${username}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -294,7 +299,7 @@ const handleUnfollowClick = async () => {
 // Handle saving the updated profile
 const handleSaveClick = async () => {
   try {
-    const response = await fetch(`http://localhost:1337/profile/${token}/edit`, {
+    const response = await fetch(`${backendURL}/profile/${token}/edit`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -308,6 +313,7 @@ const handleSaveClick = async () => {
       localStorage.setItem("username",updatedProfile.username);
       setUpdatedUsername(updatedProfile.username)
       setEditing(false); // exit editing mode
+      setAlert("Profile Saved!")
       openAlertPopup();
     } else {
       // Handle any errors from the backend here
@@ -329,22 +335,23 @@ const handleSaveClick = async () => {
     navigate("/create-account");
   }, [navigate]);
 
-  const onPaperCardContainerClick = useCallback(() => {
-    navigate("/paper-page");
-  }, [navigate]);
+ 
 
 
   const dummyProfile = {
-    "username": "Dr. Alexandra Martin",
-    "profilePicture": ["/avatar-placeholder4@2x.png"],
-    "coverPicture": ["/image-placeholder44@2x.png"],
+    "username": "username",
+    "profilePicture": ["/profile-placeholder.webp"],
+    "coverPicture": [""],
+    // "coverPicture": ["/image-placeholder44@2x.png"],
   }
   
   // Fetch Profile and posts of user
   useEffect(() => {
+    setLoadingContent("Loading Profile");
+    setIsLoading(true);
     setProfile(dummyProfile);
     const fetchProfile = async() => {
-      const response = await fetch(`http://localhost:1337/profile/${username}`,{
+      const response = await fetch(`${backendURL}/profile/${username}`,{
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -352,8 +359,9 @@ const handleSaveClick = async () => {
       });
       const data = await response.json();
       setProfile(data.profile)
+      setIsLoading(false);
       // Fetch posts by user
-      const response1 = await fetch(`http://localhost:1337/post/email/${data.profile.email}`, {
+      const response1 = await fetch(`${backendURL}/post/email/${data.profile.email}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -366,7 +374,7 @@ const handleSaveClick = async () => {
       setUserPosts(data1.posts.reverse())
 
       // Fetch posts owned by user
-      const response2 = await fetch(`http://localhost:1337/post/owned/${data.profile._id}`, {
+      const response2 = await fetch(`${backendURL}/post/owned/${data.profile._id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -403,6 +411,7 @@ const handleSaveClick = async () => {
 
   return (
     <div className="relative bg-background w-full flex flex-col items-start justify-start text-left text-3xl text-text font-base-body-space-mono">
+            <Loader isOpen={isLoading} content={loadingContent} />
       <Navigation1
         navigationPosition="unset"
         navigationWidth="unset"
