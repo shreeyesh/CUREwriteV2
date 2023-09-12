@@ -19,7 +19,36 @@ const HomepageDesktop = () => {
   const [adPost,setAdPost] = useState([])
   const [isLoading,setIsLoading] = useState(false);
   const [loadingContent, setLoadingContent] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const token = localStorage.getItem("token");
 
+
+
+  // Verify user is logged in
+useEffect(()=>
+{
+  const verifyUserLogin = async() => {
+    const response = await fetch(`${backendURL}/verifyUserLogin/${token}`,{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    if(data.status === "ok"){
+      setLoggedIn(true);
+    }
+    else{
+      setLoggedIn(false);
+      // navigate("/login");
+    }
+  };
+  verifyUserLogin();
+}
+,[token]);
+
+
+  // Navigations
   const onNavLogoClick = useCallback(() => {
     navigate("/");
   }, [navigate]);
@@ -70,8 +99,12 @@ const handleCategoryClick = (categoryName) => {
     );
   }, []);
 
-  const onButtonContainerClick = useCallback(() => {
+  const onGetStarted = useCallback(() => {
     navigate("/create-account");
+  }, [navigate]);
+  
+  const onCreatePost = useCallback(() => {
+    navigate("/create-post");
   }, [navigate]);
 
   const onHighlightedPaperContainerClick = useCallback(() => {
@@ -113,7 +146,7 @@ useEffect(() => {
   
 
   return (
-    <div className="relative bg-background w-full flex flex-col items-start justify-start text-left text-48xl text-background-secondary font-h3-work-sans overflow-x-clip">
+<div className="relative bg-background w-full flex flex-col items-start justify-start text-left text-3xl md:text-48xl text-background-secondary font-h3-work-sans overflow-x-clip">
  <Navigation1
         navigationPosition="unset"
         navigationWidth="unset"
@@ -145,9 +178,10 @@ useEffect(() => {
           {`Publish and buy medical research papers `}
         </div>
       </div>
+      {loggedIn===false?
       <div
         className="rounded-xl bg-call-to-action h-[60px] flex flex-row py-0 px-[50px] box-border items-center justify-start gap-[12px] cursor-pointer text-center text-base"
-        onClick={onButtonContainerClick}
+        onClick={onGetStarted}
       >
         <img
           className="relative w-5 h-5"
@@ -157,7 +191,21 @@ useEffect(() => {
         <div className="relative leading-[140%] font-semibold inline-block w-[92px] shrink-0">
           Get Started
         </div>
+      </div> :
+      <div
+        className="rounded-xl bg-call-to-action h-[60px] flex flex-row py-0 px-[50px] box-border items-center justify-start gap-[12px] cursor-pointer text-center text-base"
+        onClick={onCreatePost}
+      >
+        <img
+          className="relative w-5 h-5"
+          alt=""
+          src="/rocketlaunch1.svg"
+        />
+        <div className="relative leading-[140%] font-semibold inline-block w-[92px] shrink-0">
+          Create Post
+        </div>
       </div>
+}
                   <div className="self-stretch rounded-xl flex flex-row items-start justify-start gap-[30px] text-9xl text-background-secondary font-base-body-space-mono sm:flex-col sm:gap-[15px] sm:items-start sm:justify-start">
               <div className="flex-1 rounded-xl flex flex-col items-start justify-start sm:flex-[unset] sm:self-stretch">
                 <b className="self-stretch relative leading-[140%] capitalize">{`240k+ `}</b>
@@ -273,7 +321,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
-        <div className="self-stretch flex-1 overflow-hidden flex flex-row py-0 px-5 items-start justify-start gap-[30px] text-center text-3xl text-text font-base-body-space-mono">
+        <div className="self-stretch flex overflow-hidden flex flex-row py-0 mx-20 items-start justify-start gap-[30px] text-center text-3xl text-text font-base-body-space-mono">
           {collectionData.map((collection, index) =>(
             <CollectionCard
             primaryPhotoPlaceholder={collection.primaryPhotoPlaceholder}

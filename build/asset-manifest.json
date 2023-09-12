@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.4b7983a8.css",
-    "main.js": "/static/js/main.668e3c3c.js",
+    "main.css": "/static/css/main.26f2086e.css",
+    "main.js": "/static/js/main.f754dbde.js",
     "static/media/auctionad@3x.png": "/static/media/auctionad@3x.aa6c7b135151afcdb914.png",
     "static/media/SFPRODISPLAYREGULAR.OTF": "/static/media/SFPRODISPLAYREGULAR.d1f5e6e16dd4f75c3950.OTF",
     "static/media/SFPRODISPLAYSEMIBOLDITALIC.OTF": "/static/media/SFPRODISPLAYSEMIBOLDITALIC.83c857f3c60b41485937.OTF",
     "index.html": "/index.html",
-    "main.4b7983a8.css.map": "/static/css/main.4b7983a8.css.map",
-    "main.668e3c3c.js.map": "/static/js/main.668e3c3c.js.map"
+    "main.26f2086e.css.map": "/static/css/main.26f2086e.css.map",
+    "main.f754dbde.js.map": "/static/js/main.f754dbde.js.map"
   },
   "entrypoints": [
-    "static/css/main.4b7983a8.css",
-    "static/js/main.668e3c3c.js"
+    "static/css/main.26f2086e.css",
+    "static/js/main.f754dbde.js"
   ]
 }

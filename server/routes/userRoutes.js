@@ -4,14 +4,18 @@ const Profile = require('../models/profile');
 const User = require('../models/user')
 const jwt = require("jsonwebtoken");
 const { OAuth2Client } = require('google-auth-library');
+const { error } = require('console');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 router.post("/register", async (req,res) => {
     try{
-        // const uniqueEmail = User.findOne({email:req.body.email})
-        // if (uniqueEmail){
-        //     res.json({status : "error", error : 'Duplicate Email'})
-        // }
+
+        // Convert email to lowercase
+        const email = req.body.email.toLowerCase();
+        const notUniqueEmail = await User.findOne({ email: email }).exec();
+        if (notUniqueEmail){
+            throw new Error("Email already in use");
+        }
          await User.create({
             username: req.body.username,
             name:req.body.name,
@@ -43,7 +47,7 @@ router.post("/register", async (req,res) => {
         res.json({status : "ok", user:token,username:req.body.username})
     }catch(err){
         console.log(err);
-        res.json({status : "error", error : 'Email already in use'})
+        res.json({status : "error", error : 'Unexpected Error'})
     }
 })
 

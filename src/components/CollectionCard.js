@@ -31,7 +31,7 @@ const CollectionCard = ({
   }, [CreatorPfpIconBorderRadius, CreatorPfpIconCursor]);
 
   return (
-    <div className=" max-w-[450px] flex-1 rounded-xl bg-background flex flex-col items-start justify-start gap-[15px] text-left text-3xl text-text font-h3-work-sans">
+    <div className=" max-w-[400px] flex-1 rounded-xl bg-background flex flex-col items-start justify-start gap-[15px] text-left text-3xl text-text font-h3-work-sans">
       <div className="self-stretch flex flex-col items-start justify-start gap-[15px]">
         <img
           className="self-stretch relative rounded-xl max-w-full overflow-hidden h-[330px] shrink-0 object-cover cursor-pointer"

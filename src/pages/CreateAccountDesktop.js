@@ -147,7 +147,7 @@ const CreateAccountDesktop = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: credentialResponse.credential })
     };
-    const response = await fetch(`${backendURL}/google-login`, requestOptions);
+    const response = await fetch("https://react-with-cloudrun-backend-fresh-lwubjjnbzq-uc.a.run.app/google-login", requestOptions);
     const data = await response.json();
     if (data.user){
       localStorage.setItem('token',data.user);
