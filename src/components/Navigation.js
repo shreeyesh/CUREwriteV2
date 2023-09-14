@@ -1,10 +1,10 @@
-import { useMemo,useEffect,useState } from "react";
+import { useMemo,useEffect,useState,useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import jwt_decode from "jwt-decode";
 
 
-const Navigation1 = ({
+const Navigation = ({
   navigationPosition,
   navigationWidth,
   navigationTop,
@@ -49,6 +49,20 @@ const Navigation1 = ({
   // State Variables
   const [decoded,setDecoded]= useState("");
   const [profile,setProfile] = useState("");
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Dropdown close when clicked outside
+  useEffect(() => {
+    function handleOutsideClick(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    }
+  
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => document.removeEventListener('mousedown', handleOutsideClick);
+  }, []);
 
   
   // Verify Login using JWT
@@ -140,7 +154,24 @@ const Navigation1 = ({
           />
         </div>
       </div>
-      <div className="flex flex-row items-center justify-end gap-[10px]">
+      <div className="relative md:hidden" ref={dropdownRef}>
+  {/* Dropdown button */}
+  <button className="text-white bg-cw" onClick={() => setDropdownOpen(!isDropdownOpen)}>
+    ☰
+  </button>
+
+  {/* Dropdown content */}
+  <div className={`self-stretch absolute top-full right-[-185%] mt-2 border rounded shadow-lg bg-white ${isDropdownOpen ? "block" : "hidden"}`}style={{ zIndex: 9999 }}>
+    <button className="block w-full text-left text-white bg-cw px-4 py-2 hover:bg-black-200" onClick={onMarketplaceContainerClick}>Marketplace</button>
+    <button className="block w-full text-left text-white bg-cw px-4 py-2 hover:bg-gray-200" onClick={onRankingsContainerClick}>Rankings</button>
+    <button className="block w-full text-left text-white bg-cw px-4 py-2 hover:bg-gray-200" onClick={profile ? onProfileContainerClick : onLoginContainerClick}>
+      {profile ? profile : "Log In"}
+    </button>
+    {profile && <button className="block w-full text-left text-white bg-cw px-4 py-2 hover:bg-gray-200" onClick={onLogout}>Log Out</button>}
+    <button className="block w-full text-left text-white bg-cw px-4 py-2 hover:bg-gray-200" onClick={onCreateContainerClick}>Create</button>
+  </div>
+</div>
+      <div className="flex sm:hidden flex-row items-center justify-end gap-[10px]">
         <div className="rounded-xl h-[46px] flex flex-row py-0 px-5 box-border items-center justify-center gap-[12px] cursor-pointer"
           onClick={onMarketplaceContainerClick}>
           {!rocketLaunchIcon && (
@@ -197,4 +228,4 @@ const Navigation1 = ({
   );
 };
 
-export default Navigation1;
+export default Navigation;

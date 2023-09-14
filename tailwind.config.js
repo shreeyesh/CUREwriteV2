@@ -32,6 +32,7 @@ module.exports = {
         "grey-03": "#e2e6ea",
         "grey-05": "#242634",
         blue: "#4353ff",
+        cw:"#011640",
       },
       width : {
         '1200': '1200px',
@@ -53,6 +54,8 @@ module.exports = {
     fontSize: {
       xs: "12px",
       base: "16px",
+      "l": "18px",
+      "2xl": "20px",
       "3xl": "22px",
       "19xl": "38px",
       "9xl": "28px",
@@ -65,7 +68,10 @@ module.exports = {
       sm: {
         max: "420px",
       },
-    },
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+    },    
   },
   corePlugins: {
     preflight: false,

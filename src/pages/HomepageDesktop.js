@@ -1,6 +1,6 @@
 import { useCallback, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Navigation1 from "../components/Navigation1";
+import Navigation from "../components/Navigation";
 import CollectionCard from "../components/CollectionCard";
 import ArtistCard from "../components/ArtistCard";
 import PaperCard from "../components/PaperCard";
@@ -8,7 +8,7 @@ import InfoCard from "../components/InfoCard";
 import SubscribeContainer from "../components/SubscribeContainer";
 import dummydata from "./dummydata.json";
 import CategoriesTab from "../components/CategoriesTab";
-import Footer1 from "../components/Footer1";
+import Footer from "../components/Footer";
 
 const HomepageDesktop = () => {
   const navigate = useNavigate();
@@ -147,7 +147,7 @@ useEffect(() => {
 
   return (
 <div className="relative bg-background w-full flex flex-col items-start justify-start text-left text-3xl md:text-48xl text-background-secondary font-h3-work-sans overflow-x-clip">
- <Navigation1
+ <Navigation
         navigationPosition="unset"
         navigationWidth="unset"
         navigationTop="unset"
@@ -169,96 +169,47 @@ useEffect(() => {
         hasLeftIcon
         hasText
       />
-            <section className="self-stretch bg-text flex flex-row py-20 px-[195px] items-center justify-center text-left text-48xl text-text font-h3-work-sans">
-            <div className="flex-1 flex flex-row items-start justify-start gap-[30px] sm:flex-col sm:gap-[30px] sm:items-start sm:justify-start">
+<section className="self-stretch bg-text flex flex-col md:flex-row py-10 px-6 md:pr-[100px] md:pl-[150px] items-start justify-center text-2xl md:text-48xl text-text font-h3-work-sans">
     {/* This is the left side div */}
-    <div className="w-1/2 pr-6 h-[218px] flex flex-col items-center justify-center gap-[30px] sm:flex-[unset] sm:self-stretch">
-      <div className="self-stretch flex-wrap absolute h-px">
-        <div className="paper-text text-black relative top-[350px]  leading-[110%] capitalize font-semibold flex items-end w-[616px] pr-4 h-px pb-5 md:pb-4 sm:pb-3">
-          {`Publish and buy medical research papers `}
-        </div>
-      </div>
-      {loggedIn===false?
-      <div
-        className="rounded-xl bg-call-to-action h-[60px] flex flex-row py-0 px-[50px] box-border items-center justify-start gap-[12px] cursor-pointer text-center text-base"
-        onClick={onGetStarted}
-      >
-        <img
-          className="relative w-5 h-5"
-          alt=""
-          src="/rocketlaunch1.svg"
-        />
-        <div className="relative leading-[140%] font-semibold inline-block w-[92px] shrink-0">
-          Get Started
-        </div>
-      </div> :
-      <div
-        className="rounded-xl bg-call-to-action h-[60px] flex flex-row py-0 px-[50px] box-border items-center justify-start gap-[12px] cursor-pointer text-center text-base"
-        onClick={onCreatePost}
-      >
-        <img
-          className="relative w-5 h-5"
-          alt=""
-          src="/rocketlaunch1.svg"
-        />
-        <div className="relative leading-[140%] font-semibold inline-block w-[92px] shrink-0">
-          Create Post
-        </div>
-      </div>
-}
-                  <div className="self-stretch rounded-xl flex flex-row items-start justify-start gap-[30px] text-9xl text-background-secondary font-base-body-space-mono sm:flex-col sm:gap-[15px] sm:items-start sm:justify-start">
-              <div className="flex-1 rounded-xl flex flex-col items-start justify-start sm:flex-[unset] sm:self-stretch">
-                <b className="self-stretch relative leading-[140%] capitalize">{`240k+ `}</b>
-                <div className="self-stretch relative text-[23.99px] leading-[160%] capitalize font-h3-work-sans">
-                  Total Sale
-                </div>
-              </div>
-              <div className="flex-1 rounded-xl flex flex-col items-start justify-start sm:flex-[unset] sm:self-stretch">
-                <b className="self-stretch relative leading-[140%] capitalize">
-                  100k+
-                </b>
-                <div className="self-stretch relative text-[23.99px] leading-[160%] capitalize font-h3-work-sans">
-                  Papers
-                </div>
-              </div>
-              <div className="flex-1 rounded-xl flex flex-col items-start justify-start sm:flex-[unset] sm:self-stretch">
-                <b className="self-stretch relative leading-[140%] capitalize">
-                  240k+
-                </b>
-                <div className="self-stretch relative text-[23.99px] leading-[160%] capitalize font-h3-work-sans">
-                  Researchers
-                </div>
-              </div>
-            </div>
+    <div className="w-full md:w-1/2 pr-6 sm:mb-[20%] sm:pb-[15%] flex flex-col items-center justify-center gap-6 md:gap-[30px]">
+        <div className="w-full text-center md:text-left h-px">
+          <div className="paper-text text-black sm:text-9xl sm:mt-[55%] leading-relaxed capitalize font-semibold w-full md:w-[616px] pr-4 pb-5 md:pt-[40%]">
+            Publish and buy medical research papers
           </div>
+        </div>
+        <div
+          className="rounded-xl bg-call-to-action h-[60px] flex flex-row px-[50px] box-border items-center justify-start gap-[12px] cursor-pointer text-center text-base"
+          onClick={loggedIn ? onCreatePost : onGetStarted}
+        >
+          <img
+            className="relative w-5 h-5"
+            alt=""
+            src="/rocketlaunch1.svg"
+          />
+          <div className="relative leading-[140%] font-semibold inline-block w-[92px] shrink-0">
+            {loggedIn ? "Create Post" : "Get Started"}
+          </div>
+        </div>
+        <div className="w-full flex flex-wrap justify-around md:justify-start gap-6 md:gap-[30px]  text-background-secondary font-base-body-space-mono">
+  <div className="flex-1 sm:text-base text-19xl text-center md:text-left">
+    <b className="leading-relaxed capitalize">240k+</b>
+    <div className="text-base leading-relaxed font-h3-work-sans">Total Sale</div>
+  </div>
+  <div className="flex-1 sm:text-base text-19xl text-center md:text-left">
+    <b className="leading-relaxed capitalize">100k+</b>
+    <div className="text-base leading-relaxed font-h3-work-sans">Papers</div>
+  </div>
+  <div className="flex-1 sm:text-base text-19xl text-center md:text-left">
+    <b className="leading-relaxed capitalize">240k+</b>
+    <div className="text-base leading-relaxed font-h3-work-sans">Researchers</div>
+  </div>
+</div>
+</div>
+{/* This is the right side div */}
           <div
-            className="w-1/2 pl-6 self-stretch flex-1 flex flex-col items-center justify-between cursor-pointer text-3xl sm:flex-[unset] sm:self-stretch"
+            className="w-1/2 md:ml-[10%] sm:hidden self-start flex flex-col items-center justify-between cursor-pointer text-3xl"
             onClick={onHighlightedPaperContainerClick}
           >
-            <div className="rounded-xl bg-background-secondary w-[307px] hidden flex-row p-5 box-border items-center justify-start gap-[12px]">
-              <div className="flex flex-row items-start justify-start">
-                <div className="relative w-[60px] h-[60px]">
-                  <img
-                    className="absolute h-full w-full top-[0%] right-[0%] bottom-[0%] left-[0%] rounded-81xl max-w-full overflow-hidden max-h-full object-cover"
-                    alt=""
-                    src="/avatar-placeholder@2x.png"
-                  />
-                </div>
-              </div>
-              <div className="flex-1 flex flex-col items-start justify-start gap-[5px]">
-                <div className="self-stretch relative leading-[140%] capitalize font-semibold">
-                  Dish Studio
-                </div>
-                <div className="self-stretch flex flex-row items-start justify-start gap-[5px] text-base text-caption-label-text">
-                  <div className="flex-1 relative leading-[140%]">
-                    Total Sales:
-                  </div>
-                  <div className="flex-1 relative leading-[140%] font-base-body-space-mono text-text">
-                    34.53 ETH
-                  </div>
-                </div>
-              </div>
-            </div>
             <img
               className="self-stretch relative rounded-3xs max-w-full overflow-hidden h-[500px] shrink-0 object-cover"
               alt=""
@@ -306,9 +257,8 @@ useEffect(() => {
               </div>
             </div>
           </div>
-        </div>
       </section>
-      <section className="self-stretch bg-text h-[846px] overflow-hidden shrink-0 flex flex-col py-20 px-0 box-border items-center justify-start gap-[60px] text-left text-19xl text-background-secondary font-h3-work-sans">
+      <section className="self-stretch sm:w-full bg-text h-[846px] overflow-hidden shrink-0 flex flex-col py-20 sm:py-10 px-20 sm:px-0 box-border items-center justify-start gap-[60px] text-left text-19xl text-background-secondary font-h3-work-sans">
         <div className="self-stretch flex flex-col py-0 px-[50px] items-start justify-start gap-[10px]">
           <div className="self-stretch flex flex-row items-start justify-start">
             <div className="flex-1 relative leading-[120%] capitalize font-semibold">
@@ -316,12 +266,12 @@ useEffect(() => {
             </div>
           </div>
           <div className="self-stretch flex flex-row items-start justify-start text-3xl">
-            <div className="flex-1 relative leading-[160%] capitalize">
+            <div className="w-full flex-1 relative leading-[160%] capitalize sm:text-base">
               Checkout our weekly updated trending Papers.
             </div>
           </div>
         </div>
-        <div className="self-stretch flex overflow-hidden flex flex-row py-0 mx-20 items-start justify-start gap-[30px] text-center text-3xl text-text font-base-body-space-mono">
+        <div className="w-full self-stretch flex overflow-x-auto overflow-y-hidden whitespace-nowrap py-0 mx-20 sm:ml-10 sm:gap-20 items-start justify-start gap-[30px] sm:gap-0 text-center text-3xl text-text font-base-body-space-mono">
           {collectionData.map((collection, index) =>(
             <CollectionCard
             primaryPhotoPlaceholder={collection.primaryPhotoPlaceholder}
@@ -341,20 +291,20 @@ useEffect(() => {
           ))}
         </div>
       </section>
-      <section className="self-stretch bg-text flex flex-col py-20 px-[195px] items-center justify-start gap-[60px] text-left text-19xl text-background-secondary font-h3-work-sans">
-        <div className="self-stretch flex flex-row items-end justify-start gap-[100px]">
-          <div className="flex-1 flex flex-col items-start justify-start gap-[10px]">
+      <section className="self-stretch bg-text flex flex-col py-20 px-[195px] sm:px-6 items-center justify-start gap-[60px] text-left text-19xl text-background-secondary font-h3-work-sans">
+    <div className="self-stretch flex flex-row flex-wrap items-end justify-start gap-[100px] mb-6">
+        <div className="flex-1 flex flex-col items-start justify-start gap-[10px] mb-6 sm:mb-0">
             <div className="self-stretch flex flex-row items-start justify-start">
-              <div className="flex-1 relative leading-[120%] capitalize font-semibold">
-                Top Researchers
-              </div>
+                <div className="flex-1 relative leading-[120%] capitalize font-semibold">
+                    Top Researchers
+                </div>
             </div>
             <div className="self-stretch flex flex-row items-start justify-start text-3xl">
-              <div className="flex-1 relative leading-[160%] capitalize">
-                Checkout Top Rated Researchers on the Research Marketplace
-              </div>
+                <div className="flex-1 relative leading-[160%] capitalize">
+                    Checkout Top Rated Researchers on the Research Marketplace
+                </div>
             </div>
-          </div>
+        </div>
           <div
             className="flex-1 rounded-xl box-border h-[60px] flex flex-row py-0 px-[50px] items-center justify-center gap-[12px] cursor-pointer text-center text-base border-[2px] border-solid border-call-to-action"
             onClick={onViewRankingsContainerClick}
@@ -365,9 +315,9 @@ useEffect(() => {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap justify-start gap-8">
-    {artistData.map((artist, index) => (
-        <div key={index} className="w-[240px]">
+        <div className="flex flex-wrap justify-start gap-8 sm:ml-[20%]">
+            {artistData.map((artist, index) => (
+            <div key={index} className={`w-[240px] ${index > 2 ? 'sm:hidden md:block' : ''}`}>
             <ArtistCard
                 onArtistCardClick={onArtistCardClick}
                 CreatorPfp={artist.CreatorPfp}
@@ -378,42 +328,46 @@ useEffect(() => {
     ))}
 </div>
       </section>
-      <div className="self-stretch flex flex-col items-start justify-start">
-          <div className="self-stretch flex-1 relative leading-[120%] left-[200px] top-[30px] capitalize text-left text-19xl text-text font-h3-work-sans font-semibold">
-            Browse Categories
-          </div>
-        </div>
-      <CategoriesTab onCategoryClick={handleCategoryClick} />
-     
-      <section className="self-stretch bg-text flex flex-col py-20 px-[195px] items-center justify-start gap-[60px] text-left text-19xl text-background-secondary font-h3-work-sans">
-        <div className="self-stretch flex flex-row items-end justify-start gap-[100px]">
-          <div className="flex-1 flex flex-col items-start justify-start gap-[10px]">
-            <div className="self-stretch relative leading-[120%] capitalize font-semibold">
-              Discover More Research Papers
-            </div>
-            <div className="self-stretch relative text-3xl leading-[160%] capitalize">
-              Explore new trending PAPERs
-            </div>
-          </div>
-          <div
-            className="rounded-xl box-border h-[60px] flex flex-row py-0 px-[50px] items-center justify-center gap-[12px] cursor-pointer text-center text-base border-[2px] border-solid border-call-to-action"
-            onClick={onButtonContainer1Click}
-          >
-            <img className="relative w-5 h-5" alt="" src="/eye.svg" />
-            <div className="relative leading-[140%] font-semibold">See All</div>
-          </div>
-        </div>
-        <div className="self-stretch flex flex-row items-start justify-start gap-[30px]">
-          {paperData.map((paper, index) =>(
-            <PaperCard
-            onPaperCardContainerClick={onPaperCardContainerClick}
-            imagePlaceholder= {paper.imagePlaceholder}
-            PaperHeading={paper.PaperHeading}
-            CreatorPfp={paper.CreatorPfp}
-            Creator={paper.Creator}
-          />))}
-        </div>
-      </section>
+      <div className="w-[100%]">
+  <div className="sm:flex-1 relative leading-[120%] text-3xl capitalize text-left text-19xl text-text font-h3-work-sans font-semibold">
+    Browse Categories
+  </div>
+  <CategoriesTab onCategoryClick={handleCategoryClick} />
+</div>
+
+<section className="self-stretch bg-text flex flex-col py-20 px-[195px] sm:px-4 items-center justify-start gap-[60px] text-center sm:text-left text-19xl text-background-secondary font-h3-work-sans">
+  <div className="self-stretch flex flex-row items-center justify-between gap-[100px] sm:gap-4">
+    <div className="flex-1 flex flex-col items-center sm:items-start justify-start gap-[10px]">
+      <div className="self-stretch relative leading-[120%] capitalize font-semibold">
+        Discover More Research Papers
+      </div>
+      <div className="self-stretch relative text-3xl leading-[160%] capitalize">
+        Explore new trending Papers
+      </div>
+    </div>
+    <div
+      className="rounded-xl sm:shrink-0 box-border h-[60px] flex flex-row py-0 px-[50px] items-center justify-center gap-[12px] cursor-pointer text-center text-base border-[2px] border-solid border-call-to-action"
+      onClick={onButtonContainer1Click}
+    >
+      <img className="relative sm:w-auto w-5 h-5" alt="" src="/eye.svg" />
+      <div className="relative leading-[140%] font-semibold">See All</div>
+    </div>
+  </div>
+  <div className="self-stretch sm:pl-1 flex flex-row items-center justify-start overflow-x-auto sm:gap-[30px] gap-4">
+    {paperData.map((paper, index) => (
+      <PaperCard
+        className="w-[90vw] sm:w-full box-border" // No shrink or grow
+        onPaperCardContainerClick={onPaperCardContainerClick}
+        imagePlaceholder={paper.imagePlaceholder}
+        PaperHeading={paper.PaperHeading}
+        CreatorPfp={paper.CreatorPfp}
+        Creator={paper.Creator}
+      />
+    ))}
+  </div>
+</section>
+
+
       {!isLoading?
       <section className="self-stretch h-[814px] flex flex-col py-9 px-[59px] box-border items-start justify-end bg-[url(/public/auctionad@3x.png)] bg-cover bg-no-repeat bg-[top] text-left text-base text-text font-h3-work-sans">
         <div className="w-[670px] flex flex-row items-end justify-center relative">
@@ -466,7 +420,7 @@ useEffect(() => {
         </div>
       </section> : null
 }
-      <section className="self-stretch bg-text flex flex-col py-20 px-[195px] items-center justify-start gap-[48px] text-left text-19xl text-background-secondary font-h3-work-sans">
+      <section className="self-stretch bg-text flex flex-col py-20 px-[15%]  items-center justify-start gap-[48px] text-left text-19xl text-background-secondary font-h3-work-sans">
         <div className="self-stretch flex flex-col items-start justify-start gap-[10px]">
           <div className="self-stretch relative leading-[120%] capitalize font-semibold">
             How it works
@@ -475,7 +429,7 @@ useEffect(() => {
             Find out how to get started
           </div>
         </div>
-        <div className="self-stretch flex flex-row items-start justify-start gap-[30px]">
+        <div className="self-stretch flex flex-wrap w-screen items-start justify-start gap-[30px]">
           <InfoCard
             icon="/icon.svg"
             setupYourWallet="Setup Your Account"
@@ -497,14 +451,14 @@ useEffect(() => {
           />
         </div>
       </section>
-      <section className="self-stretch bg-text flex flex-col pt-10 px-[195px] pb-20 items-center justify-start">
+      <section className="self-stretch bg-text flex flex-col pt-10 px-[195px] pb-20 items-center sm:hidden justify-start">
         <SubscribeContainer
           image="/dnaimg@2x.png"
           imageText="/envelopesimple.svg"
           onButtonContainer3Click={onButtonContainer3Click}
         />
       </section>
-      <Footer1  />
+      <Footer  />
     </div>
   );
 };

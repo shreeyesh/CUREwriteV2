@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navigation1 from "../components/Navigation1";
+import Navigation from "../components/Navigation";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
-import Footer1 from "../components/Footer1";
+import Footer from "../components/Footer";
 
 
 
@@ -74,7 +74,7 @@ const LoginAccountRoles = () => {
 
   return (
     <div className="relative bg-background w-full h-[1125px] flex flex-col items-start justify-start text-left text-32xl text-text font-h3-work-sans">
-      <Navigation1
+      <Navigation
         navigationPosition="unset"
         navigationWidth="unset"
         navigationTop="unset"
@@ -171,7 +171,7 @@ const LoginAccountRoles = () => {
           </div>
         </div>
       </div>
-        <Footer1 />
+        <Footer />
     </div>
   );
 };

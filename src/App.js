@@ -22,17 +22,17 @@ function App() {
   const pathname = location.pathname;
 
   // Check for mobile
-  const isMobileDevice = () => {
-    const userAgent = window.navigator.userAgent;
-    return /Android|Mobi|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-  };
+  // const isMobileDevice = () => {
+  //   const userAgent = window.navigator.userAgent;
+  //   return /Android|Mobi|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+  // };
 
   
-  if (isMobileDevice()) {
-    return <div style={{ padding: "20px", textAlign: "center", marginTop: "40vh" }}>
-      Not compatible on mobile Currently. Please use Curewrite on desktop.
-    </div>;
-  }
+  // if (isMobileDevice()) {
+  //   return <div style={{ padding: "20px", textAlign: "center", marginTop: "40vh" }}>
+  //     Not compatible on mobile Currently. Please use Curewrite on desktop.
+  //   </div>;
+  // }
 
   useEffect(() => {
     if (action !== "POP") {

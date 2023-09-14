@@ -1,12 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Navigation1 from "../components/Navigation1";
+import Navigation from "../components/Navigation";
 import PaperCard from "../components/PaperCard";
-import Footer from "../components/Footer";
 import PortalPopup from "../components/PortalPopup";
 import AlertPopup from "../components/AlertPopup";
 import Loader from "../components/Loader";
-import Footer1 from "../components/Footer1";
+import Footer from "../components/Footer";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 
@@ -413,7 +412,7 @@ const handleSaveClick = async () => {
   return (
     <div className="relative bg-background w-full flex flex-col items-start justify-start text-left text-3xl text-text font-base-body-space-mono">
             <Loader isOpen={isLoading} content={loadingContent} />
-      <Navigation1
+      <Navigation
         navigationPosition="unset"
         navigationWidth="unset"
         navigationTop="unset"
@@ -788,7 +787,7 @@ const handleSaveClick = async () => {
   }
         </div>
         </div>
-      <Footer1 />
+      <Footer />
       {isAlertPopupOpen && (
         <PortalPopup placement="Bottom right" onOutsideClick={closeAlertPopup}>
           <AlertPopup onClose={closeAlertPopup} alert={alert} />

@@ -1,12 +1,12 @@
 import { useCallback, useState,useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Navigation1 from "../components/Navigation1";
+import Navigation from "../components/Navigation";
 import Author from "../components/Author";
 import PaperCard from "../components/PaperCard";
 import Loader from "../components/Loader";
 import PortalPopup from "../components/PortalPopup";
 import AlertPopup from "../components/AlertPopup";
-import Footer1 from "../components/Footer1";
+import Footer from "../components/Footer";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
  
@@ -259,7 +259,7 @@ useEffect(()=>
     
     <div className="relative bg-background w-full flex flex-col items-start justify-start text-left text-32xl text-text font-h3-work-sans overflow-x-clip">
       <Loader isOpen={isLoading} content={loadingContent} />
-      <Navigation1
+      <Navigation
         navigationPosition="unset"
         navigationWidth="unset"
         navigationTop="unset"
@@ -512,7 +512,7 @@ useEffect(()=>
     }
         </div>
       </div>
-      <Footer1 />
+      <Footer />
       {isAlertPopupOpen && (
         <PortalPopup placement="Bottom right" onOutsideClick={closeAlertPopup}>
           <AlertPopup onClose={closeAlertPopup} alert={alert} />

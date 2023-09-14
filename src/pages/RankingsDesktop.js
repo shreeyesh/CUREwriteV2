@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import Navigation1 from "../components/Navigation1";
+import Navigation from "../components/Navigation";
 import Tab from "../components/Tab";
 import Ranks from "../components/Ranks";
-import Footer1 from "../components/Footer1";
+import Footer from "../components/Footer";
 
 const RankingsDesktop = () => {
   const navigate = useNavigate();
@@ -120,7 +120,7 @@ const RankingsDesktop = () => {
 
   return (
     <div className="relative bg-background w-full flex flex-col items-center justify-start text-left text-32xl text-text font-base-body-space-mono">
-      <Navigation1
+      <Navigation
         navigationPosition="unset"
         navigationWidth="unset"
         navigationTop="unset"
@@ -1311,7 +1311,7 @@ const RankingsDesktop = () => {
           </div>
         </div>
       </div>
-      <Footer1 />
+      <Footer />
     </div>
   );
 };

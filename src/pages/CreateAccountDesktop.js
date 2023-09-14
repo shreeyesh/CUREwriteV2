@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navigation1 from "../components/Navigation1";
+import Navigation from "../components/Navigation";
 import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
 import AlertPopup from "../components/AlertPopup";
 import PortalPopup from "../components/PortalPopup";
 import Loader from "../components/Loader";
-import Footer1 from "../components/Footer1";
+import Footer from "../components/Footer";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 
@@ -198,7 +198,7 @@ const CreateAccountDesktop = () => {
   return (
     <div className="relative bg-background w-full h-[1125px] flex flex-col items-start justify-start text-left text-32xl text-text font-h3-work-sans">
       <Loader isOpen={isLoading} content={loadingContent} />
-      <Navigation1
+      <Navigation
         navigationPosition="unset"
         navigationWidth="unset"
         navigationTop="unset"
@@ -472,7 +472,7 @@ const CreateAccountDesktop = () => {
           <div className="self-stretch relative leading-[110%]" />
         </div>
       </div> */}
-      <Footer1 />
+      <Footer />
       {isAlertPopupOpen && (
         <PortalPopup placement="Bottom right" onOutsideClick={closeAlertPopup}>
           <AlertPopup onClose={closeAlertPopup} alert={alert} />

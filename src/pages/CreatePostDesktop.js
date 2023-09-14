@@ -2,11 +2,11 @@ import { useState, useCallback, useEffect } from "react";
 import AlertPopup from "../components/AlertPopup";
 import PortalPopup from "../components/PortalPopup";
 import { useNavigate } from "react-router-dom";
-import Navigation1 from "../components/Navigation1";
+import Navigation from "../components/Navigation";
 import UploadArea from "../components/UploadArea";
 import jwt_decode from "jwt-decode";
 import LoginPopup from "../components/LoginPopup";
-import Footer1 from "../components/Footer1";
+import Footer from "../components/Footer";
 const backendURL = process.env.REACT_APP_BACKEND_URL;
 
 const CreatePostDesktop = () => {
@@ -402,7 +402,7 @@ const handlePayment = async () => {
     <>
       <LoginPopup isOpen={isLoginPopupOpen} onClose={() => setLoginPopupOpen(false)} />
       <div className="relative bg-background-secondary w-full h-[1337px] flex flex-col text-left text-3xl text-text font-h3-work-sans">
-        <Navigation1
+        <Navigation
           onNavLogoClick={onNavLogoClick}
           horizontalLogo1="/cwLogo@2x.png"
           rocketLaunch="/rocketlaunch9.svg"
@@ -521,7 +521,7 @@ const handlePayment = async () => {
           </div>
         </div>
         <div className="absolute top-[1000px] left-[0px] bg-background-secondary ">
-        <Footer1 />
+        <Footer />
         </div>
         <div className="upload-section">
   <label htmlFor="image-upload" className="custom-upload-area cursor-pointer">
